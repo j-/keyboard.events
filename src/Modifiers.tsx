@@ -15,7 +15,7 @@ export const Modifiers: FC<{ event: KeyboardEvent }> = ({ event }) => {
   }, [event]);
 
   return (
-    <div className="py-2 px-4 bg-black/25 rounded-md">
+    <div className="truncate text-sm sm:text-base py-2 px-4 bg-black/25 rounded-md">
       <ul>
         {modifiers.map((modifier) => (
           <li
@@ -24,10 +24,8 @@ export const Modifiers: FC<{ event: KeyboardEvent }> = ({ event }) => {
               states[modifier] ? 'font-bold' : 'opacity-80'
             )}
           >
-            <code>event.getModifierState(</code>
-            <code>{output(modifier)}</code>
-            <code>)</code>
-            <code className="whitespace-pre [tab-size:38]">&#9;</code>
+            <code className="block sm:inline">event.getModifierState({output(modifier)})</code>
+            <code className="hidden sm:inline whitespace-pre [tab-size:38]">&#9;</code>
             <code>{output(states[modifier])}</code>
           </li>
         ))}

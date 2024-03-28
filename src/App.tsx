@@ -38,7 +38,7 @@ export const App: FC = () => {
 
   return (
     <div className="container px-4 mx-auto my-5 lg:my-20">
-      <h1 className="text-5xl my-10">
+      <h1 className="text-3xl sm:text-5xl my-10">
         <a href="https://keyboard.events/">keyboard.events</a>
       </h1>
 
@@ -174,6 +174,10 @@ export const App: FC = () => {
             )}
           </div>
         </details>
+      </div>
+
+      <div className="my-5">
+        <textarea className="block py-2 px-4 w-full min-h-[3.75rem] text-sm text-white bg-black/25 rounded-lg border border-black/50 focus:ring-blue-500 focus:border-blue-500" />
       </div>
 
       <div className="my-10">

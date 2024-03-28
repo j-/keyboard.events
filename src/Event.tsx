@@ -27,9 +27,9 @@ export const Event: FC<{
   );
 
   return (
-    <pre className="Event py-2 px-4 bg-black/25 rounded-md">
+    <pre className="Event truncate text-sm sm:text-base py-2 px-4 bg-black/25 rounded-md">
       {'{'}
-      <dl className="Event-keys">
+      <dl className="Event-keys grid sm:grid-cols-[auto_1fr]">
         {keys.map((key, i, arr) => (
           <EventKey
             key={key}

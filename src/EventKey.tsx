@@ -75,7 +75,7 @@ export const EventKey: FC<{
       <dd
         key={`EventKey-value-${eventKey}`}
         className={className(
-          'EventKey-value',
+          'EventKey-value [&:not(:last-child)]:mb-4 sm:!m-0',
           selectNonPrimitives
             ? null
             : isPrimitive

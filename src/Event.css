@@ -1,6 +1,4 @@
 .Event-keys {
-  display: grid;
-  grid-template-columns: auto 1fr;
   margin: 0 0 0 1rem;
   column-gap: 1rem;
 }
