@@ -5,8 +5,7 @@ import './Event.css';
 
 function allKeys<T>(obj: T): (keyof T)[] {
   const keys: (keyof T)[] = [];
-  for (let key in obj) {
-    console.log(key);
+  for (const key in obj) {
     keys.push(key);
   }
   return keys;
