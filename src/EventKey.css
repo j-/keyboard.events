@@ -1,0 +1,28 @@
+.EventKey-key,
+.EventKey-value {
+  display: inline-block;
+}
+
+.EventKey-interesting {
+  font-weight: bold;
+}
+
+.EventKey-uninteresting {
+  opacity: 0.8;
+}
+
+.EventKey-not-primitive {
+  user-select: none;
+}
+
+.EventKey-deprecated .EventKey-key-name {
+  text-decoration: line-through;
+}
+
+.EventKey-punc {
+  opacity: 0.5;
+}
+
+.EventKey-key[title] {
+  cursor: help;
+}
