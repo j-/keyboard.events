@@ -68,6 +68,11 @@ export const App: FC = () => {
                   "which property" on MDN
                 </a>
               </li>
+              <li>
+                <a href="https://github.com/j-/keyboard.events">
+                  Source code on GitHub
+                </a>
+              </li>
             </ul>
           </div>
         </details>
