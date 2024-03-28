@@ -38,7 +38,9 @@ export const App: FC = () => {
 
   return (
     <div className="container px-4 mx-auto my-5 lg:my-20">
-      <h1 className="text-5xl my-10">Keyboard events</h1>
+      <h1 className="text-5xl my-10">
+        <a href="https://keyboard.events/">keyboard.events</a>
+      </h1>
 
       <div className="max-w-60">
         <details className="my-5">
