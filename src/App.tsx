@@ -45,100 +45,33 @@ export const App: FC = () => {
         <a href="https://keyboard.events/">keyboard.events</a>
       </h1>
 
-      <div className="max-w-60">
-        <details className="my-5">
-          <summary className="text-xl cursor-pointer">Helpful links</summary>
-
-          <div className="my-5">
-            <ul className="list-disc ps-5">
-              <li>
-                <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent">
-                  "KeyboardEvent" on MDN
-                </a>
-              </li>
-              <li>
-                <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/getModifierState">
-                  "getModifierState()" on MDN
-                </a>
-              </li>
-              <li>
-                <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/location">
-                  "location property" on MDN
-                </a>
-              </li>
-              <li>
-                <a href="https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/which">
-                  "which property" on MDN
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/j-/keyboard.events">
-                  Source code on GitHub
-                </a>
-              </li>
-            </ul>
-          </div>
-        </details>
-
+      <div>
         <details className="my-5">
           <summary className="text-xl cursor-pointer">Listen to</summary>
 
-          <div className="my-5">
-            <Checkbox
-              checked={listenKeydown}
-              onChange={(e) => setListenKeydown(e.currentTarget.checked)}
-            >
-              Listen to <code>keydown</code> events
-            </Checkbox>
-
-            <Checkbox
-              checked={listenKeyup}
-              onChange={(e) => setListenKeyup(e.currentTarget.checked)}
-            >
-              Listen to <code>keyup</code> events
-            </Checkbox>
-
-            <Checkbox
-              checked={listenKeypress}
-              onChange={(e) => setListenKeypress(e.currentTarget.checked)}
-            >
-              Listen to <code>keypress</code> events
-            </Checkbox>
-
-            <div className="my-5">
-              <button
-                className="text-sm bg-gray-500 hover:bg-gray-400 text-gray-100 py-1 px-2 rounded-l"
-                type="button"
-                onClick={() => {
-                  setListenKeydown(true);
-                  setListenKeyup(true);
-                  setListenKeypress(true);
-                }}
+          <div className="my-5 max-w-80">
+            <div className="items-center w-full text-sm font-medium text-neutral-900 bg-white border border-neutral-200 rounded-lg sm:flex dark:bg-neutral-700 dark:border-neutral-600 dark:text-white">
+              <Checkbox
+                className="font-mono p-3 w-full border-b border-neutral-200 sm:border-b-0 sm:border-r dark:border-neutral-600"
+                checked={listenKeydown}
+                onChange={(e) => setListenKeydown(e.currentTarget.checked)}
               >
-                All
-              </button>
-              <button
-                className="text-sm bg-gray-500 hover:bg-gray-400 text-gray-100 py-1 px-2"
-                type="button"
-                onClick={() => {
-                  setListenKeydown(false);
-                  setListenKeyup(false);
-                  setListenKeypress(false);
-                }}
+                keydown
+              </Checkbox>
+              <Checkbox
+                className="font-mono p-3 w-full border-b border-neutral-200 sm:border-b-0 sm:border-r dark:border-neutral-600"
+                checked={listenKeyup}
+                onChange={(e) => setListenKeyup(e.currentTarget.checked)}
               >
-                None
-              </button>
-              <button
-                className="text-sm bg-gray-500 hover:bg-gray-400 text-gray-100 py-1 px-2 rounded-r"
-                type="button"
-                onClick={() => {
-                  setListenKeydown(true);
-                  setListenKeyup(true);
-                  setListenKeypress(false);
-                }}
+                keyup
+              </Checkbox>
+              <Checkbox
+                className="font-mono p-3 w-full border-b border-neutral-200 border-b-0 dark:border-neutral-600"
+                checked={listenKeypress}
+                onChange={(e) => setListenKeypress(e.currentTarget.checked)}
               >
-                Default
-              </button>
+                keypress
+              </Checkbox>
             </div>
           </div>
         </details>
@@ -213,6 +146,40 @@ export const App: FC = () => {
           </div>
         </div>
       </div>
+
+      <details className="my-5">
+        <summary className="text-xl cursor-pointer">Helpful links</summary>
+
+        <div className="my-5">
+          <ul className="list-disc ps-5">
+            <li>
+              <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent">
+                "KeyboardEvent" on MDN
+              </a>
+            </li>
+            <li>
+              <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/getModifierState">
+                "getModifierState()" on MDN
+              </a>
+            </li>
+            <li>
+              <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/location">
+                "location property" on MDN
+              </a>
+            </li>
+            <li>
+              <a href="https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/which">
+                "which property" on MDN
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/j-/keyboard.events">
+                Source code on GitHub
+              </a>
+            </li>
+          </ul>
+        </div>
+      </details>
     </div>
   );
 };
