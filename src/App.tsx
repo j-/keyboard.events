@@ -12,10 +12,13 @@ const defaultEvent = new KeyboardEvent('keypress', {
   which: 65,
 });
 
+const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+
 export const App: FC = () => {
   const [preventDefault, setPreventDefault] = useState(false);
   const [showUninteresting, setShowUninteresting] = useState(false);
   const [selectNonPrimitives, setSelectNonPrimitives] = useState(false);
+  const [showTextarea, setShowTextarea] = useState(coarsePointer);
 
   const [latestEvent, setLatestEvent] = useState<KeyboardEvent>(defaultEvent);
 
@@ -164,21 +167,32 @@ export const App: FC = () => {
 
             {showUninteresting && (
               <Checkbox
+                className="ms-6"
                 checked={selectNonPrimitives}
-                onChange={(e) =>
-                  setSelectNonPrimitives(e.currentTarget.checked)
-                }
+                onChange={(e) => setSelectNonPrimitives(e.currentTarget.checked)}
               >
                 Select non-primitive values
               </Checkbox>
             )}
+
+            <Checkbox
+              checked={showTextarea}
+              onChange={(e) => setShowTextarea(e.currentTarget.checked)}
+            >
+              Enable text input field
+            </Checkbox>
           </div>
         </details>
       </div>
 
-      <div className="my-5">
-        <textarea className="block py-2 px-4 w-full min-h-[3.75rem] text-sm text-white bg-black/25 rounded-lg border border-black/50 focus:ring-blue-500 focus:border-blue-500" />
-      </div>
+      {showTextarea ? (
+        <div className="my-5">
+          <textarea
+            autoFocus
+            className="block py-2 px-4 w-full min-h-[3.75rem] text-sm text-white bg-black/25 rounded-lg border border-black/50 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+      ) : null}
 
       <div className="my-10">
         <div className="flex flex-col xl:flex-row gap-5">
