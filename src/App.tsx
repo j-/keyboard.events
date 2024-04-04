@@ -48,7 +48,7 @@ export const App: FC = () => {
   } = useKeyboardEvents(handleChangeEvent);
 
   return (
-    <div className="container px-4 mx-auto my-5 lg:my-20">
+    <div className="container px-4 mx-auto mt-5 mb-20 lg:my-20">
       <h1 className="text-3xl sm:text-5xl my-10">
         <a href="https://keyboard.events/">keyboard.events</a>
       </h1>
@@ -205,6 +205,11 @@ export const App: FC = () => {
             <li>
               <a href="https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/which">
                 "which property" on MDN
+              </a>
+            </li>
+            <li>
+              <a href="https://w3c.github.io/uievents-code/">
+                "UI Events KeyboardEvent code Values" on W3C
               </a>
             </li>
             <li>
