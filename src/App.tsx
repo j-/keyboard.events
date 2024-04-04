@@ -1,8 +1,13 @@
-import { FC, useCallback, useState } from 'react';
-import { Event } from './Event';
-import { useKeyboardEvents } from './use-keyboard-events';
-import { Modifiers } from './Modifiers';
+import classNames from 'classnames';
+import { Effect } from 'effect';
+import { FC, useCallback, useRef, useState } from 'react';
 import { Checkbox } from './Checkbox';
+import { Event } from './Event';
+import { FullscreenButton } from './FullscreenButton';
+import { Modifiers } from './Modifiers';
+import { lockKeyboard } from './lock-keyboard';
+import { useIsFullscreen } from './use-is-fullscreen';
+import { useKeyboardEvents } from './use-keyboard-events';
 
 const defaultEvent = new KeyboardEvent('keypress', {
   key: 'a',
@@ -15,6 +20,9 @@ const defaultEvent = new KeyboardEvent('keypress', {
 const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
 
 export const App: FC = () => {
+  const fullScreenElementRef = useRef<HTMLDivElement>(null);
+  const isFullscreen = useIsFullscreen();
+
   const [preventDefault, setPreventDefault] = useState(false);
   const [showUninteresting, setShowUninteresting] = useState(false);
   const [selectNonPrimitives, setSelectNonPrimitives] = useState(false);
@@ -128,23 +136,50 @@ export const App: FC = () => {
       ) : null}
 
       <div className="my-10">
-        <div className="flex flex-col xl:flex-row gap-5">
-          <div className="flex-1">
-            <h2 className="text-xl my-2">Event details</h2>
+        <div ref={fullScreenElementRef} className="bg-[#242424] grid place-items-center">
+          <div className="container">
+            <div className="flex flex-col xl:flex-row gap-5">
+              <div className="flex-1">
+                <h2 className="text-xl my-2">Event details</h2>
 
-            <Event
-              event={latestEvent}
-              showUninteresting={showUninteresting}
-              selectNonPrimitives={selectNonPrimitives}
-            />
-          </div>
+                <Event
+                  event={latestEvent}
+                  showUninteresting={showUninteresting}
+                  selectNonPrimitives={selectNonPrimitives}
+                />
+              </div>
 
-          <div className="flex-1">
-            <h2 className="text-xl my-2">Modifier states</h2>
+              <div className="flex-1">
+                <h2 className="text-xl my-2">Modifier states</h2>
 
-            <Modifiers event={latestEvent} />
+                <Modifiers event={latestEvent} />
+              </div>
+            </div>
+
+            <div className={classNames('my-10', isFullscreen ? 'block' : 'hidden')}>
+              <button
+                className="bg-neutral-900 hover:bg-neutral-700 text-white text-start py-2 px-4 rounded"
+                type="button"
+                onClick={() => document.exitFullscreen()}
+              >
+                Exit fullscreen
+              </button>
+            </div>
           </div>
         </div>
+      </div>
+
+      <div className="my-10">
+        <FullscreenButton
+          onClick={() => {
+            const promise = lockKeyboard({
+              fullScreenElement: fullScreenElementRef.current,
+            });
+            Effect.runPromise(promise).then(() => {
+              setPreventDefault(true);
+            });
+          }}
+        />
       </div>
 
       <details className="my-5">
