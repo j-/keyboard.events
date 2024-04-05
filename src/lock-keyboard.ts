@@ -16,18 +16,18 @@ const navigatorHasKeyboard = (navigator: Navigator): navigator is Navigator & { 
 const keyboardHasLock = (keyboard: Keyboard): keyboard is Keyboard & { lock: LockFunction } => 'lock' in keyboard;
 
 export const lockKeyboard = ({
-  fullScreenElement = document.documentElement,
+  fullscreenElement = document.documentElement,
 }: {
-  fullScreenElement?: Element | null;
+  fullscreenElement?: Element | null;
 } = {}) => Effect.promise(async () => {
-  if (!fullScreenElement) {
+  if (!fullscreenElement) {
     return Effect.fail(new Error('No fullscreen element available'));
   }
   if (!navigatorHasKeyboard(navigator) || !keyboardHasLock(navigator.keyboard)) {
     return Effect.fail(new Error('Keyboard lock is not supported'));
   }
   try {
-    await fullScreenElement.requestFullscreen();
+    await fullscreenElement.requestFullscreen();
   } catch (err) {
     return Effect.fail(new Error('Fullscreen request failed'));
   }
