@@ -4,7 +4,8 @@ import { OS, useOS } from './use-os';
 const FullscreenMessage: FC = () => {
   const os = useOS();
   switch (os) {
-    case OS.WIN: return <>Disables the Windows button, Alt-Tab etc.</>;
+    case OS.WIN: return <>Disables the Windows button, Ctrl+W, Alt+Tab, Alt+F4 etc.</>;
+    case OS.MAC: return <>Disables Cmd+W, Cmd+Q, Cmd+H etc.</>;
     default: return null;
   }
 };
