@@ -32,10 +32,10 @@ export const App: FC = () => {
 
   const handleChangeEvent = useCallback(
     (e: KeyboardEvent) => {
-      if (preventDefault) e.preventDefault();
+      if (preventDefault || isFullscreen) e.preventDefault();
       setLatestEvent(e);
     },
-    [preventDefault]
+    [preventDefault, isFullscreen]
   );
 
   const {
@@ -136,7 +136,7 @@ export const App: FC = () => {
       ) : null}
 
       <div className="my-10">
-        <div ref={fullScreenElementRef} className="bg-[#242424] grid place-items-center">
+        <div ref={fullScreenElementRef} className={classNames(isFullscreen && 'bg-[#242424] grid place-items-center overflow-y-auto p-5')}>
           <div className="container">
             <div className="flex flex-col xl:flex-row gap-5">
               <div className="flex-1">
@@ -175,9 +175,7 @@ export const App: FC = () => {
             const promise = lockKeyboard({
               fullScreenElement: fullScreenElementRef.current,
             });
-            Effect.runPromise(promise).then(() => {
-              setPreventDefault(true);
-            });
+            Effect.runPromise(promise);
           }}
         />
       </div>
