@@ -19,7 +19,7 @@ export default defineConfig({
         theme_color: '#242424',
         icons: [
           {
-            src: 'favicon.svg',
+            src: 'maskable_icon.svg',
             sizes: '48x48 72x72 96x96 128x128 384x384 512x512',
             type: 'image/svg+xml',
             purpose: 'any',
