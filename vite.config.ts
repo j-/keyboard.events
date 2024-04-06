@@ -7,6 +7,10 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
+      devOptions: {
+        navigateFallbackAllowlist: [/^index.html$/],
+        enabled: true,
+      },
       injectRegister: 'auto',
       registerType: 'autoUpdate',
       workbox: {
