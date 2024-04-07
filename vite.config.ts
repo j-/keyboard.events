@@ -7,16 +7,7 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      devOptions: {
-        navigateFallbackAllowlist: [/^index.html$/],
-        enabled: true,
-      },
-      injectRegister: 'auto',
       registerType: 'autoUpdate',
-      workbox: {
-        globPatterns: ['**/*'],
-      },
-      includeAssets: ['**/*'],
       manifest: {
         name: 'keyboard.events',
         short_name: 'keyboard.events',
