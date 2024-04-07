@@ -1,18 +1,10 @@
-import { FC, useMemo } from 'react';
 import className from 'classnames';
-import { Location } from './Location';
+import { FC, useMemo } from 'react';
 import { deprecatedKeys, interestingKeys } from '../constants';
+import { isPrimitive as isInputPrimitive } from '../utils/is-primitive';
 import { output } from '../utils/output';
+import { Location } from './Location';
 import './EventKey.css';
-
-function isInputPrimitive<T>(input: T): boolean {
-  return (
-    typeof input === 'string' ||
-    typeof input === 'boolean' ||
-    typeof input === 'number' ||
-    input == null
-  );
-}
 
 export const EventKey: FC<{
   event: KeyboardEvent;
