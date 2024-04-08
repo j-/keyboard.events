@@ -63,40 +63,30 @@ export const App: FC = () => {
 
   return (
     <div className="container px-4 mx-auto mt-5 mb-20 lg:my-20">
-      <h1 className="text-3xl sm:text-5xl my-10">
-        <a href="https://keyboard.events/">keyboard.events</a>
-      </h1>
-
-      <details className="my-5">
-        <summary className="text-xl cursor-pointer">Listen to</summary>
-
-        <div className="my-5 max-w-80">
-          <ListenToCheckboxes
-            listenKeydown={listenKeydown}
-            setListenKeydown={setListenKeydown}
-            listenKeyup={listenKeyup}
-            setListenKeyup={setListenKeyup}
-            listenKeypress={listenKeypress}
-            setListenKeypress={setListenKeypress}
-          />
+      <div className="my-10 flex flex-col gap-4 md:flex-row items-start justify-between">
+        <div>
+          <h1 className="text-3xl sm:text-5xl">
+            <a href="https://keyboard.events/">keyboard.events</a>
+          </h1>
+          <p className="sm:text-xl my-2">Inspect JavaScript <code>KeyboardEvent</code>s.</p>
         </div>
-      </details>
+
+        <ListenToCheckboxes
+          listenKeydown={listenKeydown}
+          setListenKeydown={setListenKeydown}
+          listenKeyup={listenKeyup}
+          setListenKeyup={setListenKeyup}
+          listenKeypress={listenKeypress}
+          setListenKeypress={setListenKeypress}
+          preventDefault={preventDefault}
+          setPreventDefault={setPreventDefault}
+        />
+      </div>
 
       <details className="my-5" open>
         <summary className="text-xl cursor-pointer">Settings</summary>
 
         <div className="my-5">
-          <Checkbox
-            checked={preventDefault}
-            onChange={(e) => setPreventDefault(e.currentTarget.checked)}
-            onKeyDown={(e) => {
-              // Prevent checkbox selection with keyboard which then cannot be undone.
-              if (e.code === 'Space') e.preventDefault();
-            }}
-          >
-            Prevent default behavior
-          </Checkbox>
-
           <Checkbox
             checked={showUninteresting}
             onChange={(e) => setShowUninteresting(e.currentTarget.checked)}
