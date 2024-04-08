@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { Effect } from 'effect';
 import { FC, useCallback, useRef, useState } from 'react';
 import { Checkbox } from './Checkbox';
-import { EventDetails } from './EventDetails';
+import { KeyboardEventDetails } from './KeyboardEventDetails';
 import { FullscreenButton } from './FullscreenButton';
 import { HelpfulLinks } from './HelpfulLinks';
 import { ListenToCheckboxes } from './ListenToCheckboxes';
@@ -143,7 +143,7 @@ export const App: FC = () => {
               )}
             </div>
             
-            <EventDetails
+            <KeyboardEventDetails
               event={latestEvent}
               selectNonPrimitives={selectNonPrimitives}
               showUninteresting={showUninteresting}

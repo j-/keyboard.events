@@ -5,7 +5,11 @@ import classNames from 'classnames';
 
 type ModifierStates = Record<Modifier, boolean>;
 
-export const Modifiers: FC<{ event: KeyboardEvent }> = ({ event }) => {
+export type KeyboardEventModifiersProps = {
+  event: KeyboardEvent;
+};
+
+export const KeyboardEventModifiers: FC<KeyboardEventModifiersProps> = ({ event }) => {
   const states = useMemo<ModifierStates>(() => {
     return modifiers.reduce(
       (acc, modifier) =>

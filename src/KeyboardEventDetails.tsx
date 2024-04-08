@@ -1,14 +1,14 @@
 import { FC } from 'react';
-import { Event } from './Event';
-import { Modifiers } from './Modifiers';
+import { KeyboardEventProperties } from './KeyboardEventProperties';
+import { KeyboardEventModifiers } from './KeyboardEventModifiers';
 
-export type EventDetailsProps = {
+export type KeyboardEventDetailsProps = {
   event: KeyboardEvent;
   showUninteresting: boolean;
   selectNonPrimitives: boolean;
 };
 
-export const EventDetails: FC<EventDetailsProps> = ({
+export const KeyboardEventDetails: FC<KeyboardEventDetailsProps> = ({
   event,
   showUninteresting,
   selectNonPrimitives,
@@ -18,7 +18,7 @@ export const EventDetails: FC<EventDetailsProps> = ({
       <div className="flex-1">
         <h2 className="text-xl my-2">Event details</h2>
 
-        <Event
+        <KeyboardEventProperties
           event={event}
           showUninteresting={showUninteresting}
           selectNonPrimitives={selectNonPrimitives}
@@ -28,7 +28,7 @@ export const EventDetails: FC<EventDetailsProps> = ({
       <div className="flex-1">
         <h2 className="text-xl my-2">Modifier states</h2>
 
-        <Modifiers event={event} />
+        <KeyboardEventModifiers event={event} />
       </div>
     </div>
   </div>
