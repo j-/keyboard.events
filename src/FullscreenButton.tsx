@@ -1,6 +1,7 @@
 import { FC, HTMLAttributes } from 'react';
 import { OS, useOS } from './use-os';
 import { Button } from './Button';
+import classNames from 'classnames';
 
 const FullscreenMessage: FC = () => {
   const os = useOS();
@@ -11,10 +12,9 @@ const FullscreenMessage: FC = () => {
   }
 };
 
-export const FullscreenButton: FC<HTMLAttributes<HTMLButtonElement>> = (props) => (
-  <Button {...props}>
+export const FullscreenButton: FC<HTMLAttributes<HTMLButtonElement>> = ({ className, ...props }) => (
+  <Button className={classNames('inline-flex flex-col sm:flex-row gap-2', className)} {...props}>
     <strong>Go fullscreen</strong>
-    <br />
     <FullscreenMessage />
   </Button>
 );

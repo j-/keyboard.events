@@ -10,6 +10,7 @@ import { Textarea } from './Textarea';
 import { lockKeyboard } from './lock-keyboard';
 import { useIsFullscreen } from './use-is-fullscreen';
 import { useKeyboardEvents } from './use-keyboard-events';
+import { ExitFullscreenButton } from './ExitFullscreenButton';
 
 const defaultEvent = new KeyboardEvent('keypress', {
   key: 'a',
@@ -45,6 +46,10 @@ export const App: FC = () => {
       fullscreenElement: fullscreenElementRef.current,
     });
     Effect.runPromise(promise);
+  }, []);
+
+  const handleClickExitFullscreen = useCallback(() => {
+    document.exitFullscreen();
   }, []);
 
   const {
@@ -129,16 +134,22 @@ export const App: FC = () => {
           ref={fullscreenElementRef}
           className={classNames(isFullscreen && 'bg-[#242424] grid place-items-center overflow-y-auto px-4 py-8')}
         >
-          <EventDetails
-            event={latestEvent}
-            selectNonPrimitives={selectNonPrimitives}
-            showUninteresting={showUninteresting}
-          />
+          <div className="container flex flex-col">
+            <div className="my-5">
+              {isFullscreen ? (
+                <ExitFullscreenButton onClick={handleClickExitFullscreen} />
+              ) : (
+                <FullscreenButton onClick={handleClickFullscreen} />
+              )}
+            </div>
+            
+            <EventDetails
+              event={latestEvent}
+              selectNonPrimitives={selectNonPrimitives}
+              showUninteresting={showUninteresting}
+            />
+          </div>
         </div>
-      </div>
-
-      <div className="my-10">
-        <FullscreenButton onClick={handleClickFullscreen} />
       </div>
 
       <details className="my-5">
