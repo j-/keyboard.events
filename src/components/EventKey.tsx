@@ -1,8 +1,8 @@
 import { FC, useMemo } from 'react';
 import className from 'classnames';
 import { Location } from './Location';
-import { deprecatedKeys, interestingKeys } from './constants';
-import { output } from './output';
+import { deprecatedKeys, interestingKeys } from '../constants';
+import { output } from '../utils/output';
 import './EventKey.css';
 
 function isInputPrimitive<T>(input: T): boolean {

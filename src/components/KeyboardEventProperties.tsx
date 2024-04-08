@@ -1,6 +1,6 @@
 import { FC, useMemo } from 'react';
 import { EventKey } from './EventKey';
-import { interestingKeys } from './constants';
+import { interestingKeys } from '../constants';
 import './KeyboardEventProperties.css';
 
 function allKeys<T>(obj: T): (keyof T)[] {

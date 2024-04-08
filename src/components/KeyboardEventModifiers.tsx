@@ -1,6 +1,6 @@
 import { FC, useMemo } from 'react';
-import { Modifier, modifiers } from './constants';
-import { output } from './output';
+import { Modifier, modifiers } from '../constants';
+import { output } from '../utils/output';
 import classNames from 'classnames';
 
 type ModifierStates = Record<Modifier, boolean>;

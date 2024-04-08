@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { registerSW } from 'virtual:pwa-register';
-import { App } from './App.tsx';
+import { App } from './components/App.tsx';
 import './index.css';
 
 if ('serviceWorker' in navigator) {

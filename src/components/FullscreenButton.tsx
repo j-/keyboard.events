@@ -1,7 +1,7 @@
-import { FC, HTMLAttributes } from 'react';
-import { OS, useOS } from './use-os';
-import { Button } from './Button';
 import classNames from 'classnames';
+import { FC, HTMLAttributes } from 'react';
+import { Button } from './Button';
+import { OS, useOS } from '../hooks/use-os';
 
 const FullscreenMessage: FC = () => {
   const os = useOS();

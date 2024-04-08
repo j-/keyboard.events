@@ -1,16 +1,16 @@
 import classNames from 'classnames';
 import { Effect } from 'effect';
 import { FC, useCallback, useRef, useState } from 'react';
+import { useIsFullscreen } from '../hooks/use-is-fullscreen';
+import { useKeyboardEvents } from '../hooks/use-keyboard-events';
+import { lockKeyboard } from '../utils/lock-keyboard';
 import { Checkbox } from './Checkbox';
-import { KeyboardEventDetails } from './KeyboardEventDetails';
+import { ExitFullscreenButton } from './ExitFullscreenButton';
 import { FullscreenButton } from './FullscreenButton';
 import { HelpfulLinks } from './HelpfulLinks';
+import { KeyboardEventDetails } from './KeyboardEventDetails';
 import { ListenToCheckboxes } from './ListenToCheckboxes';
 import { Textarea } from './Textarea';
-import { lockKeyboard } from './lock-keyboard';
-import { useIsFullscreen } from './use-is-fullscreen';
-import { useKeyboardEvents } from './use-keyboard-events';
-import { ExitFullscreenButton } from './ExitFullscreenButton';
 
 const defaultEvent = new KeyboardEvent('keypress', {
   key: 'a',
