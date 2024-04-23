@@ -45,7 +45,9 @@ export const App: FC = () => {
     const promise = lockKeyboard({
       fullscreenElement: fullscreenElementRef.current,
     });
-    Effect.runPromise(promise);
+    Effect.runPromise(promise).catch((err) => {
+      console.error('Failed with error', err);
+    });
   }, []);
 
   const handleClickExitFullscreen = useCallback(() => {
@@ -142,7 +144,7 @@ export const App: FC = () => {
                 <FullscreenButton onClick={handleClickFullscreen} />
               )}
             </div>
-            
+
             <KeyboardEventDetails
               event={latestEvent}
               selectNonPrimitives={selectNonPrimitives}
