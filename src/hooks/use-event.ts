@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export const useEvent = <T, E = Event>({
   target = window,
@@ -27,7 +27,13 @@ export const useEvent = <T, E = Event>({
         callback as EventListenerOrEventListenerObject
       );
     };
-  }, [enabled, target, callback]);
+  }, [enabled, target, callback, name]);
 
-  return { enabled, setEnabled };
+  return useMemo(() => ({
+    enabled,
+    setEnabled,
+  }), [
+    enabled,
+    setEnabled,
+  ]);
 };
