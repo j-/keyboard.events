@@ -72,7 +72,7 @@ export const App: FC = () => {
       <details className="my-5">
         <summary className="text-xl cursor-pointer">Listen to</summary>
 
-        <div className="my-5 max-w-80">
+        <div className="my-5 max-w-[fit-content]">
           <ListenToCheckboxes
             listenKeydown={listenKeydown}
             setListenKeydown={setListenKeydown}
