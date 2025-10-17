@@ -29,7 +29,7 @@ export const KeyboardEventModifiers: FC<KeyboardEventModifiersProps> = ({ event 
             )}
           >
             <code className="block sm:inline">event.getModifierState({output(modifier)})</code>
-            <code className="hidden sm:inline whitespace-pre [tab-size:38]">&#9;</code>
+            <code className="hidden sm:inline whitespace-pre [tab-size:50]">&#9;</code>
             <code>{output(states[modifier])}</code>
           </li>
         ))}
