@@ -1,5 +1,5 @@
-import { ThemeProvider } from '@mui/material';
 import Drawer, { drawerClasses, DrawerProps } from '@mui/material/Drawer';
+import { ThemeProvider } from '@mui/material/styles';
 import { FC } from 'react';
 import { shadTheme } from '../theme';
 

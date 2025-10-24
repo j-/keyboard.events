@@ -1,4 +1,8 @@
-import { ThemeProvider } from '@mui/material';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import { ThemeProvider } from '@mui/material/styles';
 import { useState, type FC } from 'react';
 import { shadTheme } from '../theme';
 import { AppMainContent } from './AppMainContent';
@@ -9,13 +13,14 @@ import { Sidebar } from './Sidebar';
 const drawerWidth = 240;
 
 export const App: FC = () => {
-  const [drawerOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
     <ThemeProvider theme={shadTheme('light')}>
       <Sidebar
         open={drawerOpen}
         width={drawerWidth}
+        onClose={() => setDrawerOpen(false)}
       >
         <AppSidebarContent />
       </Sidebar>
@@ -24,9 +29,16 @@ export const App: FC = () => {
         choke={2}
         drawerOpen={drawerOpen}
         drawerWidth={drawerWidth}
-        sx={{ p: 2 }}
       >
-        <AppMainContent />
+        <IconButton onClick={() => {
+          setDrawerOpen((drawerOpen) => !drawerOpen);
+        }}>
+          {drawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+        </IconButton>
+
+        <Box m={2}>
+          <AppMainContent />
+        </Box>
       </Main>
     </ThemeProvider>
   );
