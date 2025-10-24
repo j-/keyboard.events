@@ -18,6 +18,7 @@ const useAppContextState = () => {
 
   const [optionsLevel, setOptionsLevel] = useState(OptionsLevel.BASIC);
   const [eventTarget, setEventTarget] = useState(EventTargetOption.WINDOW);
+  const [persistSidebar, setPersistSidebar] = useState(false);
 
   return useMemo(() => ({
     capture,
@@ -36,6 +37,8 @@ const useAppContextState = () => {
     setOptionsLevel,
     eventTarget,
     setEventTarget,
+    persistSidebar,
+    setPersistSidebar,
   }), [
     capture,
     setCapture,
@@ -53,6 +56,8 @@ const useAppContextState = () => {
     setOptionsLevel,
     eventTarget,
     setEventTarget,
+    persistSidebar,
+    setPersistSidebar,
   ]);
 };
 

@@ -30,6 +30,8 @@ export const AppSidebarContent: FC = () => {
     setOptionsLevel,
     eventTarget,
     setEventTarget,
+    persistSidebar,
+    setPersistSidebar,
   } = useAppContext();
 
   return (
@@ -215,6 +217,24 @@ export const AppSidebarContent: FC = () => {
                     sx={{ width: 'fit-content' }}
                   />
                 </RadioGroup>
+              </FormControl>
+
+              <FormControl>
+                <FormLabel id={`${id}-app`}>App controls</FormLabel>
+
+                <FormGroup
+                  aria-labelledby={`${id}-app`}
+                  row
+                >
+                  <FormControlLabel
+                    name="sidebar"
+                    value="persist"
+                    label="Persist sidebar"
+                    control={<Checkbox size="small" />}
+                    checked={persistSidebar}
+                    onChange={(_, checked) => setPersistSidebar(checked)}
+                  />
+                </FormGroup>
               </FormControl>
             </>
           )}
