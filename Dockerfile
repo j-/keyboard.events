@@ -1,30 +1,17 @@
-# syntax = docker/dockerfile:1
+FROM oven/bun:1 AS builder
 
-# Adjust NODE_VERSION as desired
-ARG NODE_VERSION=18.16.0
-FROM node:${NODE_VERSION}-slim as builder
+WORKDIR /tmp
 
-LABEL fly_launch_runtime="Vite"
+ARG NODE_ENV=production
+ENV NODE_ENV=$NODE_ENV
 
-# Next.js app lives here
-WORKDIR /app
+COPY package.json bun.lock ./
 
-# Set production environment
-ENV NODE_ENV="production"
+RUN bun install --production
 
-# Install node modules
-COPY --link package-lock.json package.json ./
-RUN npm ci --include=dev
+COPY . .
 
-# Copy application code
-COPY --link . .
-
-# Build application
-RUN npm run build
-
-# Remove development dependencies
-RUN npm prune --omit=dev
+RUN bun run build
 
 FROM nginx:stable-alpine
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /tmp/dist /usr/share/nginx/html
