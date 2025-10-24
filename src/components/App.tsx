@@ -10,7 +10,7 @@ import { AppSidebarContent } from './AppSidebarContent';
 import { Main } from './Main';
 import { Sidebar } from './Sidebar';
 
-const drawerWidth = 240;
+const drawerWidth = 400;
 
 export const App: FC = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -18,6 +18,7 @@ export const App: FC = () => {
   return (
     <ThemeProvider theme={shadTheme('light')}>
       <Sidebar
+        variant="temporary"
         open={drawerOpen}
         width={drawerWidth}
         onClose={() => setDrawerOpen(false)}

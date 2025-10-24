@@ -4,8 +4,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { registerSW } from 'virtual:pwa-register';
 import { App } from './components/App.tsx';
+import { AppProvider } from './context/AppContext.tsx';
 import './index.css';
 import { shadTheme } from './theme.ts';
+import { EventContextProvider } from './context/EventContext.tsx';
 
 if ('serviceWorker' in navigator) {
   registerSW();
@@ -15,7 +17,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider theme={shadTheme('dark')}>
       <CssBaseline />
-      <App />
+      <AppProvider>
+        <EventContextProvider>
+          <App />
+        </EventContextProvider>
+      </AppProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

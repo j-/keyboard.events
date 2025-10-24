@@ -8,12 +8,13 @@ export type SidebarProps = DrawerProps & {
 };
 
 export const Sidebar: FC<SidebarProps> = ({
+  variant = 'persistent',
   width = 240,
   ...props
 }) => (
   <ThemeProvider theme={shadTheme('dark')}>
     <Drawer
-      variant="persistent"
+      variant={variant}
       anchor="left"
       sx={{
         width: width,

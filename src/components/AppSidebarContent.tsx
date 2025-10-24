@@ -1,8 +1,225 @@
-import Typography from '@mui/material/Typography';
-import { FC } from 'react';
+import Checkbox from '@mui/material/Checkbox';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import FormLabel from '@mui/material/FormLabel';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import Stack from '@mui/material/Stack';
+import { useId, type FC } from 'react';
+import { useAppContext } from '../hooks/use-app-context';
+import { EventTargetOption, OptionsLevel } from '../types';
 
 export const AppSidebarContent: FC = () => {
+  const id = useId();
+
+  const {
+    capture,
+    setCapture,
+    stopPropagation,
+    setStopPropagation,
+    preventDefault,
+    setPreventDefault,
+    handleKeydown,
+    setHandleKeydown,
+    handleKeyup,
+    setHandleKeyup,
+    handleKeypress,
+    setHandleKeypress,
+    optionsLevel,
+    setOptionsLevel,
+    eventTarget,
+    setEventTarget,
+  } = useAppContext();
+
   return (
-    <Typography>Hello</Typography>
+    <Stack gap={2} m={4}>
+      <FormControl>
+        <FormLabel id={`${id}-show`}>Mode</FormLabel>
+
+        <RadioGroup
+          aria-labelledby={`${id}-show`}
+          onChange={(_, value) => {
+            setOptionsLevel(
+              Number(value) as OptionsLevel
+            );
+          }}
+          row
+        >
+          <FormControlLabel
+            name="options"
+            value={OptionsLevel.BASIC}
+            label="Basic"
+            control={<Radio size="small" />}
+            checked={optionsLevel === OptionsLevel.BASIC}
+          />
+
+          <FormControlLabel
+            name="options"
+            value={OptionsLevel.ADVANCED}
+            label="Advanced"
+            control={<Radio size="small" />}
+            checked={optionsLevel === OptionsLevel.ADVANCED}
+          />
+        </RadioGroup>
+      </FormControl>
+
+      {optionsLevel > OptionsLevel.HIDE && (
+        <>
+          <FormControl>
+            <FormLabel id={`${id}-listen-to`}>Listen to</FormLabel>
+
+            <FormGroup
+              aria-labelledby={`${id}-listen-to`}
+              row
+            >
+              <FormControlLabel
+                name="handle"
+                value="keydown"
+                label="keydown"
+                control={<Checkbox size="small" />}
+                checked={handleKeydown}
+                onChange={(_, checked) => setHandleKeydown(checked)}
+              />
+
+              <FormControlLabel
+                name="handle"
+                value="keyup"
+                label="keyup"
+                control={<Checkbox size="small" />}
+                checked={handleKeyup}
+                onChange={(_, checked) => setHandleKeyup(checked)}
+              />
+
+              <FormControlLabel
+                name="handle"
+                value="keypress"
+                label="keypress"
+                control={<Checkbox size="small" />}
+                checked={handleKeypress}
+                onChange={(_, checked) => setHandleKeypress(checked)}
+              />
+            </FormGroup>
+          </FormControl>
+
+          <FormControl>
+            <FormLabel id={`${id}-modifiers`}>Modifiers</FormLabel>
+
+            <FormGroup
+              aria-labelledby={`${id}-modifiers`}
+              row
+            >
+              <FormControlLabel
+                name="prepare"
+                value="stopPropagation"
+                label="stopPropagation"
+                control={<Checkbox size="small" />}
+                checked={stopPropagation}
+                onChange={(_, checked) => setStopPropagation(checked)}
+              />
+
+              <FormControlLabel
+                name="prepare"
+                value="preventDefault"
+                label="preventDefault"
+                control={<Checkbox size="small" />}
+                checked={preventDefault}
+                onChange={(_, checked) => setPreventDefault(checked)}
+              />
+            </FormGroup>
+          </FormControl>
+
+          {optionsLevel > OptionsLevel.BASIC && (
+            <>
+              <FormControl>
+                <FormLabel id={`${id}-event-phase`}>Event phase</FormLabel>
+
+                <RadioGroup
+                  aria-labelledby={`${id}-event-phase`}
+                  onChange={(_, value) => {
+                    setCapture(value === 'capture');
+                  }}
+                  row
+                >
+                  <FormControlLabel
+                    name="phase"
+                    value="bubble"
+                    label="Bubble"
+                    control={<Radio size="small" />}
+                    checked={!capture}
+                  />
+
+                  <FormControlLabel
+                    name="phase"
+                    value="capture"
+                    label="Capture"
+                    control={<Radio size="small" />}
+                    checked={capture}
+                  />
+                </RadioGroup>
+              </FormControl>
+
+              <FormControl>
+                <FormLabel id={`${id}-event-target`}>Event target</FormLabel>
+
+                <RadioGroup
+                  aria-labelledby={`${id}-event-target`}
+                  onChange={(_, value) => {
+                    setEventTarget(
+                      Number(value) as EventTargetOption
+                    );
+                  }}
+                >
+                  <FormControlLabel
+                    name="event-target"
+                    value={EventTargetOption.WINDOW}
+                    label="Window"
+                    control={<Radio size="small" sx={{ ml: 0 }} />}
+                    checked={eventTarget === EventTargetOption.WINDOW}
+                    sx={{ width: 'fit-content' }}
+                  />
+
+                  <FormControlLabel
+                    name="event-target"
+                    value={EventTargetOption.DOCUMENT}
+                    label="Document"
+                    control={<Radio size="small" sx={{ ml: 1 }} />}
+                    checked={eventTarget === EventTargetOption.DOCUMENT}
+                    sx={{ width: 'fit-content' }}
+                  />
+
+                  <FormControlLabel
+                    name="event-target"
+                    value={EventTargetOption.HTML}
+                    label="HTML"
+                    control={<Radio size="small" sx={{ ml: 2 }} />}
+                    checked={eventTarget === EventTargetOption.HTML}
+                    sx={{ width: 'fit-content' }}
+                  />
+
+                  <FormControlLabel
+                    name="event-target"
+                    value={EventTargetOption.BODY}
+                    label="Body"
+                    control={<Radio size="small" sx={{ ml: 3 }} />}
+                    checked={eventTarget === EventTargetOption.BODY}
+                    sx={{ width: 'fit-content' }}
+                  />
+
+                  <FormControlLabel
+                    name="event-target"
+                    value={EventTargetOption.INPUT}
+                    label="Input"
+                    control={<Radio size="small" sx={{ ml: 4 }} />}
+                    checked={eventTarget === EventTargetOption.INPUT}
+                    sx={{ width: 'fit-content' }}
+                  />
+                </RadioGroup>
+              </FormControl>
+            </>
+          )}
+        </>
+      )}
+    </Stack>
   );
 };

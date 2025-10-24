@@ -1,15 +1,26 @@
-import Stack from '@mui/material/Stack';
 import type { FC } from 'react';
+import { useLatestEvent } from '../hooks/use-latest-event';
 
 export const AppMainContent: FC = () => {
+  const latestEvent = useLatestEvent();
+
   return (
-    <details>
-      <summary>Expand content</summary>
-      <Stack>
-        {Array.from({ length: 50 }, (_, i) => (
-          <div key={i}>Line {i + 1}</div>
-        ))}
-      </Stack>
-    </details>
+    <pre>
+      {JSON.stringify({
+        type: latestEvent.type,
+        key: latestEvent.key,
+        code: latestEvent.code,
+        location: latestEvent.location,
+        ctrlKey: latestEvent.ctrlKey,
+        shiftKey: latestEvent.shiftKey,
+        altKey: latestEvent.altKey,
+        metaKey: latestEvent.metaKey,
+        repeat: latestEvent.repeat,
+        isComposing: latestEvent.isComposing,
+        charCode: latestEvent.charCode,
+        keyCode: latestEvent.keyCode,
+        which: latestEvent.which,
+      }, null, 2)}
+    </pre>
   );
 };
