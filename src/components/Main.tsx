@@ -6,6 +6,8 @@ import type { FC } from 'react';
 
 export type MainProps = PaperProps & {
   choke?: StandardCSSProperties['padding'];
+  drawerOpen?: boolean;
+  drawerWidth?: number;
 };
 
 const MainPaper = styled(Paper)<PaperProps>({
@@ -15,8 +17,30 @@ const MainPaper = styled(Paper)<PaperProps>({
   borderRadius: 8,
 });
 
-export const Main: FC<MainProps> = ({ choke = 1, ...props }) => (
-  <>
+export const Main: FC<MainProps> = ({
+  choke = 1,
+  drawerOpen = true,
+  drawerWidth = 240,
+  ...props
+}) => (
+  <Box
+    sx={[
+      (theme) => ({
+        transition: theme.transitions.create('margin', {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+      }),
+
+      drawerOpen ? (theme) => ({
+        transition: theme.transitions.create('margin', {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: `${drawerWidth}px`,
+      }) : null,
+    ]}
+  >
     <Box
       sx={{
         pointerEvents: 'none',
@@ -48,5 +72,5 @@ export const Main: FC<MainProps> = ({ choke = 1, ...props }) => (
     >
       <MainPaper {...props} />
     </Box>
-  </>
+  </Box>
 );

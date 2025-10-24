@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import type { FC } from 'react';
 
-export const AppContent: FC = () => {
+export const AppMainContent: FC = () => {
   return (
     <details>
       <summary>Expand content</summary>
