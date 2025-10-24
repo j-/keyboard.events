@@ -2,7 +2,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import { ThemeProvider } from '@mui/material/styles';
+import { alpha, ThemeProvider } from '@mui/material/styles';
 import { useState, type FC } from 'react';
 import { shadTheme } from '../theme';
 import { AppMainContent } from './AppMainContent';
@@ -33,9 +33,20 @@ export const App: FC = () => {
         drawerOpen={drawerOpen}
         drawerWidth={drawerWidth}
       >
-        <IconButton onClick={() => {
-          setDrawerOpen((drawerOpen) => !drawerOpen);
-        }}>
+        <IconButton
+          onClick={() => {
+            setDrawerOpen((drawerOpen) => !drawerOpen);
+          }}
+          sx={{
+            position: 'fixed',
+            top: 17,
+            backdropFilter: 'blur(4px)',
+            backgroundColor: (theme) => alpha(theme.palette.common.white, 0.1),
+            '&:hover': {
+              backgroundColor: (theme) => alpha(theme.palette.common.black, 0.1),
+            },
+          }}
+        >
           {drawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
         </IconButton>
 
