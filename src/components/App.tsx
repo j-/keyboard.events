@@ -1,15 +1,15 @@
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import { alpha, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { useState, type FC } from 'react';
+import { useAppContext } from '../hooks/use-app-context';
 import { shadTheme } from '../theme';
 import { AppMainContent } from './AppMainContent';
 import { AppSidebarContent } from './AppSidebarContent';
 import { Main } from './Main';
 import { Sidebar } from './Sidebar';
-import { useAppContext } from '../hooks/use-app-context';
+import { ToggleSidebarButton } from './ToggleSidebarButton';
 
 const drawerWidth = 400;
 
@@ -33,22 +33,17 @@ export const App: FC = () => {
         drawerOpen={drawerOpen}
         drawerWidth={drawerWidth}
       >
-        <IconButton
+        <ToggleSidebarButton
           onClick={() => {
             setDrawerOpen((drawerOpen) => !drawerOpen);
           }}
           sx={{
             position: 'fixed',
             top: 17,
-            backdropFilter: 'blur(4px)',
-            backgroundColor: (theme) => alpha(theme.palette.common.white, 0.1),
-            '&:hover': {
-              backgroundColor: (theme) => alpha(theme.palette.common.black, 0.1),
-            },
           }}
         >
           {drawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-        </IconButton>
+        </ToggleSidebarButton>
 
         <Box m={2}>
           <AppMainContent />
