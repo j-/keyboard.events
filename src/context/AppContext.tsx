@@ -3,22 +3,31 @@ import {
   type FC,
   type PropsWithChildren,
   useMemo,
-  useState,
 } from 'react';
+import useSessionStorageState from 'use-session-storage-state';
 import { EventTargetOption, OptionsLevel } from '../types';
 
 const useAppContextState = () => {
-  const [capture, setCapture] = useState(false);
-  const [stopPropagation, setStopPropagation] = useState(true);
-  const [preventDefault, setPreventDefault] = useState(false);
+  const [capture, setCapture] =
+    useSessionStorageState('capture', { defaultValue: false });
+  const [stopPropagation, setStopPropagation] =
+    useSessionStorageState('stopPropagation', { defaultValue: true });
+  const [preventDefault, setPreventDefault] =
+    useSessionStorageState('preventDefault', { defaultValue: false });
 
-  const [handleKeydown, setHandleKeydown] = useState(true);
-  const [handleKeyup, setHandleKeyup] = useState(true);
-  const [handleKeypress, setHandleKeypress] = useState(false);
+  const [handleKeydown, setHandleKeydown] =
+    useSessionStorageState('handleKeydown', { defaultValue: true });
+  const [handleKeyup, setHandleKeyup] =
+    useSessionStorageState('handleKeyup', { defaultValue: true });
+  const [handleKeypress, setHandleKeypress] =
+    useSessionStorageState('handleKeypress', { defaultValue: false });
 
-  const [optionsLevel, setOptionsLevel] = useState(OptionsLevel.BASIC);
-  const [eventTarget, setEventTarget] = useState(EventTargetOption.WINDOW);
-  const [persistSidebar, setPersistSidebar] = useState(false);
+  const [optionsLevel, setOptionsLevel] =
+    useSessionStorageState('optionsLevel', { defaultValue: OptionsLevel.BASIC });
+  const [eventTarget, setEventTarget] =
+    useSessionStorageState('eventTarget', { defaultValue: EventTargetOption.WINDOW });
+  const [persistSidebar, setPersistSidebar] =
+    useSessionStorageState('persistSidebar', { defaultValue: false });
 
   return useMemo(() => ({
     capture,
