@@ -20,7 +20,7 @@ export const App: FC = () => {
   return (
     <ThemeProvider theme={shadTheme('light')}>
       <Sidebar
-        variant={persistSidebar ? 'permanent' : 'temporary'}
+        variant={persistSidebar ? 'persistent' : 'temporary'}
         open={drawerOpen}
         width={drawerWidth}
         onClose={() => setDrawerOpen(false)}
