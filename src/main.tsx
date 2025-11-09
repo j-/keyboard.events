@@ -4,10 +4,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { registerSW } from 'virtual:pwa-register';
 import { App } from './components/App.tsx';
-import { AppProvider } from './context/AppContext.tsx';
+import { AppProvider } from './context/AppContext';
 import './index.css';
 import { shadTheme } from './theme.ts';
-import { EventContextProvider } from './context/EventContext.tsx';
+import { EventContextProvider } from './context/EventContext';
 
 if ('serviceWorker' in navigator) {
   registerSW();

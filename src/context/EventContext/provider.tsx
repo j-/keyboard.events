@@ -1,17 +1,8 @@
 import type { FC, PropsWithChildren } from 'react';
-import { createContext, useEffect, useMemo, useState } from 'react';
-import { useAppContext } from '../hooks/use-app-context';
-import { EventTargetOption } from '../types';
-
-const defaultEvent = new KeyboardEvent('keyup', {
-  key: 'a',
-  code: 'KeyA',
-  charCode: 0,
-  keyCode: 65,
-  which: 65,
-});
-
-export const EventContext = createContext<KeyboardEvent>(defaultEvent);
+import { useEffect, useMemo, useState } from 'react';
+import { useAppContext } from '../../hooks/use-app-context';
+import { EventTargetOption } from '../../types';
+import { defaultEvent, EventContext } from './context';
 
 export const EventContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [event, setEvent] = useState<KeyboardEvent>(defaultEvent);

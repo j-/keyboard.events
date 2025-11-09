@@ -1,13 +1,8 @@
-import {
-  createContext,
-  type FC,
-  type PropsWithChildren,
-  useMemo,
-} from 'react';
+import { useMemo } from 'react';
 import useSessionStorageState from 'use-session-storage-state';
-import { EventTargetOption, OptionsLevel } from '../types';
+import { EventTargetOption, OptionsLevel } from '../../types';
 
-const useAppContextState = () => {
+export const useAppContextState = () => {
   const [capture, setCapture] =
     useSessionStorageState('capture', { defaultValue: false });
   const [stopPropagation, setStopPropagation] =
@@ -68,18 +63,4 @@ const useAppContextState = () => {
     persistSidebar,
     setPersistSidebar,
   ]);
-};
-
-export type AppContextType = ReturnType<typeof useAppContextState>;
-
-export const AppContext = createContext<AppContextType>({} as AppContextType);
-
-export const AppProvider: FC<PropsWithChildren> = ({ children }) => {
-  const appContext = useAppContextState();
-
-  return (
-    <AppContext.Provider value={appContext}>
-      {children}
-    </AppContext.Provider>
-  );
 };
