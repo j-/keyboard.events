@@ -1,5 +1,5 @@
-import { createTheme } from '@mui/material';
 import { amber, common, green, grey, lightBlue, red } from '@mui/material/colors';
+import { createTheme } from '@mui/material/styles';
 
 const background = common['black'];
 const bodyBackground = common['black'];

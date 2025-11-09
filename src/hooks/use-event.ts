@@ -18,13 +18,13 @@ export const useEvent = <T, E = Event>({
 
     target.addEventListener(
       name,
-      callback as EventListenerOrEventListenerObject
+      callback as EventListenerOrEventListenerObject,
     );
 
     return () => {
       target.removeEventListener(
         name,
-        callback as EventListenerOrEventListenerObject
+        callback as EventListenerOrEventListenerObject,
       );
     };
   }, [enabled, target, callback, name]);

@@ -4,7 +4,7 @@ const initIsFullscreen = () => (
   typeof document === 'undefined' ?
     false :
     document.fullscreenElement != null
-)
+);
 
 export const useIsFullscreen = () => {
   const [isFullscreen, setIsFullscreen] = useState(initIsFullscreen);

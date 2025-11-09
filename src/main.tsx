@@ -6,8 +6,8 @@ import { registerSW } from 'virtual:pwa-register';
 import { App } from './components/App.tsx';
 import { AppProvider } from './context/AppContext';
 import './index.css';
-import { shadTheme } from './theme.ts';
 import { EventContextProvider } from './context/EventContext';
+import { shadTheme } from './theme.ts';
 
 if ('serviceWorker' in navigator) {
   registerSW();
@@ -23,5 +23,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         </EventContextProvider>
       </AppProvider>
     </ThemeProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

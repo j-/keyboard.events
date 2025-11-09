@@ -7,7 +7,7 @@ export const defaultEvent = Object.freeze(
     charCode: 0,
     keyCode: 65,
     which: 65,
-  })
+  }),
 );
 
 export const EventContext = createContext<KeyboardEvent>(defaultEvent);

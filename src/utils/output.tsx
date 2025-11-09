@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 export function output<T>(input: T): ReactNode {
   if (typeof input === 'function') return `[function ${input.name}()]`;

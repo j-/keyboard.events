@@ -28,12 +28,12 @@ export const lockKeyboard = ({
   }
   try {
     await fullscreenElement.requestFullscreen();
-  } catch (err) {
+  } catch {
     return Effect.fail(new Error('Fullscreen request failed'));
   }
   try {
     await navigator.keyboard.lock();
-  } catch (err) {
+  } catch {
     return Effect.fail(new Error('Keyboard lock failed'));
   }
 });

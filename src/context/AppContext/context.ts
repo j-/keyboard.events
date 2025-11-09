@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { useAppContextState } from './hooks';
+import { type useAppContextState } from './hooks';
 
 export type AppContextType = ReturnType<typeof useAppContextState>;
 

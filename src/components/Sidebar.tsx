@@ -1,6 +1,6 @@
-import Drawer, { drawerClasses, DrawerProps } from '@mui/material/Drawer';
+import Drawer, { drawerClasses, type DrawerProps } from '@mui/material/Drawer';
 import { ThemeProvider } from '@mui/material/styles';
-import { FC } from 'react';
+import { type FC } from 'react';
 import { shadTheme } from '../theme';
 
 export type SidebarProps = DrawerProps & {

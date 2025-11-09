@@ -43,7 +43,7 @@ export const AppSidebarContent: FC = () => {
           aria-labelledby={`${id}-show`}
           onChange={(_, value) => {
             setOptionsLevel(
-              Number(value) as OptionsLevel
+              Number(value) as OptionsLevel,
             );
           }}
           row
@@ -168,7 +168,7 @@ export const AppSidebarContent: FC = () => {
                   aria-labelledby={`${id}-event-target`}
                   onChange={(_, value) => {
                     setEventTarget(
-                      Number(value) as EventTargetOption
+                      Number(value) as EventTargetOption,
                     );
                   }}
                 >
