@@ -26,6 +26,8 @@ export const EventContextProvider: FC<PropsWithChildren> = ({ children }) => {
     eventTarget: eventTargetOption,
   } = useAppContext();
 
+  const passive = !preventDefault && !stopPropagation;
+
   const eventTarget = useMemo(() => {
     switch (eventTargetOption) {
       case EventTargetOption.WINDOW:
@@ -50,12 +52,12 @@ export const EventContextProvider: FC<PropsWithChildren> = ({ children }) => {
       setEvent(e as KeyboardEvent);
     };
 
-    eventTarget.addEventListener('keydown', handler, { capture });
+    eventTarget.addEventListener('keydown', handler, { capture, passive });
 
     return () => {
       eventTarget.removeEventListener('keydown', handler, { capture });
     };
-  }, [eventTarget, handleKeydown, stopPropagation, preventDefault, capture]);
+  }, [eventTarget, handleKeydown, stopPropagation, preventDefault, capture, passive]);
 
   useEffect(() => {
     if (!eventTarget || !handleKeyup) return;
@@ -66,12 +68,12 @@ export const EventContextProvider: FC<PropsWithChildren> = ({ children }) => {
       setEvent(e as KeyboardEvent);
     };
 
-    eventTarget.addEventListener('keyup', handler, { capture });
+    eventTarget.addEventListener('keyup', handler, { capture, passive });
 
     return () => {
       eventTarget.removeEventListener('keyup', handler, { capture });
     };
-  }, [eventTarget, handleKeyup, stopPropagation, preventDefault, capture]);
+  }, [eventTarget, handleKeyup, stopPropagation, preventDefault, capture, passive]);
 
   useEffect(() => {
     if (!eventTarget || !handleKeypress) return;
@@ -82,12 +84,12 @@ export const EventContextProvider: FC<PropsWithChildren> = ({ children }) => {
       setEvent(e as KeyboardEvent);
     };
 
-    eventTarget.addEventListener('keypress', handler, { capture });
+    eventTarget.addEventListener('keypress', handler, { capture, passive });
 
     return () => {
       eventTarget.removeEventListener('keypress', handler, { capture });
     };
-  }, [eventTarget, handleKeypress, stopPropagation, preventDefault, capture]);
+  }, [eventTarget, handleKeypress, stopPropagation, preventDefault, capture, passive]);
 
   return (
     <EventContext.Provider value={event}>
