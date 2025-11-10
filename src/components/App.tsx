@@ -4,9 +4,12 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import { ThemeProvider } from '@mui/material/styles';
+import { Effect } from 'effect';
 import { useEffect, useState, type FC } from 'react';
 import { useAppContext } from '../hooks/use-app-context';
+import { useIsFullscreen } from '../hooks/use-is-fullscreen';
 import { shadTheme } from '../theme';
+import { lockKeyboard } from '../utils/lock-keyboard';
 import { AppMainContent } from './AppMainContent';
 import { AppSidebarContent } from './AppSidebarContent';
 import { Main } from './Main';
@@ -18,13 +21,17 @@ const drawerWidth = 400;
 export const App: FC = () => {
   const { persistSidebar, preventDefault, setPreventDefault } = useAppContext();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const isFullscreen = useIsFullscreen();
 
   useEffect(() => {
     if (!preventDefault) return;
 
-    const handleKeydown = (e: KeyboardEvent) => {
+    const handleKeydown = async (e: KeyboardEvent) => {
       if (e.key === 'Escape' && e.repeat) {
         setPreventDefault(false);
+        if (document.fullscreenElement != null) {
+          await document.exitFullscreen();
+        }
       }
     };
 
@@ -48,23 +55,59 @@ export const App: FC = () => {
         </Sidebar>
 
         <Main
+          data-test-id="App-main"
           choke={2}
           drawerOpen={drawerOpen}
           drawerWidth={drawerWidth}
+          sx={{
+            display: 'grid',
+            placeItems: 'center',
+          }}
         >
           <ToggleSidebarButton
             onClick={() => {
               setDrawerOpen((drawerOpen) => !drawerOpen);
             }}
+            size="large"
             sx={{
               position: 'fixed',
               top: 17,
+              justifySelf: 'start',
+              m: 1,
             }}
           >
             {drawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </ToggleSidebarButton>
 
           <Box m={2}>
+            <Button
+              variant="contained"
+              size="large"
+              sx={{
+                position: 'fixed',
+                top: 0,
+                right: 0,
+                m: 3,
+              }}
+              onClick={async () => {
+                if (isFullscreen) {
+                  await document.exitFullscreen();
+                  setPreventDefault(false);
+                } else {
+                  const promise = lockKeyboard();
+                  Effect.runPromise(promise)
+                    .then(() => {
+                      setPreventDefault(true);
+                    })
+                    .catch((err) => {
+                      console.error('Failed with error', err);
+                    });
+                }
+              }}
+            >
+              {isFullscreen ? 'Unlock keyboard' : 'Lock keyboard'}
+            </Button>
+
             <AppMainContent />
           </Box>
         </Main>
@@ -77,7 +120,12 @@ export const App: FC = () => {
           <Button
             variant="contained"
             size="small"
-            onClick={() => setPreventDefault(false)}
+            onClick={async () => {
+              if (isFullscreen) {
+                await document.exitFullscreen();
+              }
+              setPreventDefault(false);
+            }}
           >
             Cancel
           </Button>
