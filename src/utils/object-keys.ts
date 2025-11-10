@@ -1,29 +1,17 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export const getObjectName = (value: unknown, defaultName = 'Object') => {
-  try { return (value as any).__proto__.constructor.name; } catch {}
-  try { return (value as any).constructor.name; } catch {}
-  try { return Object.getPrototypeOf(value).name; } catch {}
-  try { return (value as any).name; } catch {}
-  return defaultName;
-};
-/* eslint-enable @typescript-eslint/no-explicit-any */
 
-export const getArrayName = (value: unknown[]) =>
-  `${getObjectName(value, 'Array')}(${value.length})`;
-
-export function forInKeys<T>(obj: T): (keyof T)[] {
+export const forInKeys = <T>(obj: T): (keyof T)[] => {
   const keys: (keyof T)[] = [];
   for (const key in obj) {
     keys.push(key);
   }
   return keys;
-}
+};
 
-export function ownKeys<T>(obj: T): (keyof T)[] {
+export const ownKeys = <T>(obj: T): (keyof T)[] => {
   return Object.getOwnPropertyNames(obj) as (keyof T)[];
-}
+};
 
-export function allKeys<T extends object>(obj: T): (keyof T)[] {
+export const allKeys = <T extends object>(obj: T): (keyof T)[] => {
   const maybeKeys = [
     'name',
     'type',
@@ -43,9 +31,9 @@ export function allKeys<T extends object>(obj: T): (keyof T)[] {
   for (const key of ownKeys(obj)) keys.add(key);
   for (const key of maybeKeys) if (key in obj) keys.add(key);
   return [...keys.values()];
-}
+};
 
-export function orderedKeys<T extends object>(obj: T): (keyof T)[] {
+export const orderedKeys = <T extends object>(obj: T): (keyof T)[] => {
   const all = allKeys(obj);
   const fnKeys = all.filter((key) => typeof obj[key] === 'function');
   // Manually compute the difference
@@ -56,6 +44,4 @@ export function orderedKeys<T extends object>(obj: T): (keyof T)[] {
   const fnSorted = [...fnKeys].sort();
 
   return [...restSorted, ...fnSorted];
-}
-
-export const getErrorName = (err: unknown) => getObjectName(err, 'Error');
+};

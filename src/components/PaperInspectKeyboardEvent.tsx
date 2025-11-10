@@ -1,35 +1,13 @@
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { ThemeProvider } from '@mui/material/styles';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { theme } from '../code-theme';
-import { metaKeyboardEventLocationFn } from './MetaKeyboardEventLocation';
-import { metaKeyboardEventPhaseFn } from './MetaKeyboardEventPhase';
+import { COMPLEX_TYPES, INTERESTING_KEYS } from '../constants';
+import { metaKeyboardEventLocationFn } from '../utils/keyboard-event-location';
+import { metaKeyboardEventPhaseFn } from '../utils/keyboard-event-phase';
+import { getObjectName } from '../utils/object-name';
 import { ObjectViewObject } from './ObjectView/ObjectViewObject';
-
-export const complexTypes = [
-  Element,
-  HTMLElement,
-  SVGElement,
-  Window,
-  Document,
-];
-
-export const interestingKeys = [
-  'type',
-  'key',
-  'code',
-  'location',
-  'ctrlKey',
-  'shiftKey',
-  'altKey',
-  'metaKey',
-  'repeat',
-  'isComposing',
-  'charCode',
-  'keyCode',
-  'which',
-];
 
 export type PaperInspectKeyboardEventProps = {
   event?: KeyboardEvent;
@@ -40,6 +18,10 @@ export const PaperInspectKeyboardEvent = memo<PaperInspectKeyboardEventProps>(({
   event,
   showUninteresting,
 }) => {
+  const keys = useMemo(() => {
+    return showUninteresting ? undefined : [...INTERESTING_KEYS];
+  }, [showUninteresting]);
+
   if (!event) return null;
 
   return (
@@ -47,10 +29,10 @@ export const PaperInspectKeyboardEvent = memo<PaperInspectKeyboardEventProps>(({
       <Box sx={{ overflowX: 'auto', maxWidth: '100%' }}>
         <ThemeProvider theme={theme}>
           <ObjectViewObject
-            name={event.constructor.name}
+            name={getObjectName(event)}
             value={event}
-            complexTypes={complexTypes}
-            keys={showUninteresting ? undefined : interestingKeys}
+            complexTypes={COMPLEX_TYPES}
+            keys={keys}
             comments={comments}
           />
         </ThemeProvider>

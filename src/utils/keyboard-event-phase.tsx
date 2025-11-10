@@ -1,5 +1,3 @@
-import { type FC } from 'react';
-
 type KeyboardEventPhases = {
   NONE?: number;
   CAPTURING_PHASE?: number;
@@ -27,11 +25,4 @@ export const metaKeyboardEventPhaseFn = (eventPhase: KeyboardEvent['eventPhase']
     default:
       return null;
   }
-};
-
-export const MetaKeyboardEventPhase: FC<{ eventPhase: KeyboardEvent['eventPhase'] }> = ({
-  eventPhase,
-}) => {
-  const str = metaKeyboardEventPhaseFn(eventPhase);
-  return str ? <>{str}</> : <em>unknown</em>;
 };

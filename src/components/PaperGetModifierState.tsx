@@ -4,26 +4,9 @@ import { alpha, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { memo } from 'react';
 import { theme } from '../code-theme';
+import { MODIFIERS } from '../constants';
 import { ObjectViewBoolean } from './ObjectView/ObjectViewBoolean';
 import { ObjectViewString } from './ObjectView/ObjectViewString';
-
-export const modifiers = [
-  'Alt',
-  'AltGraph',
-  'CapsLock',
-  'Control',
-  'Fn',
-  // 'FnLock',
-  'Hyper',
-  'Meta',
-  'NumLock',
-  'OS',
-  'ScrollLock',
-  'Shift',
-  // 'Super',
-  // 'Symbol',
-  // 'SymbolLock',
-];
 
 export type PaperGetModifierStateProps = {
   event?: KeyboardEvent;
@@ -38,7 +21,7 @@ export const PaperGetModifierState = memo<PaperGetModifierStateProps>(({
     <Paper sx={{ p: 2 }}>
       <Box sx={{ overflowX: 'auto' }}>
         <ThemeProvider theme={theme}>
-          {modifiers.map((modifier) => (
+          {MODIFIERS.map((modifier) => (
             <ModifierStateLine
               key={modifier}
               modifier={modifier}

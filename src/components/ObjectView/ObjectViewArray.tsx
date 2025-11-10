@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { memo } from 'react';
-import { getArrayName } from './utils';
+import { getArrayName } from '../../utils/object-name';
 import { ObjectView } from './index';
 
 export const ObjectViewArray = memo<{ value: unknown[] }>(({ value }) => {

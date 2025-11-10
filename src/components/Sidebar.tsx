@@ -1,6 +1,7 @@
 import Drawer, { drawerClasses, type DrawerProps } from '@mui/material/Drawer';
 import { ThemeProvider } from '@mui/material/styles';
 import { type FC } from 'react';
+import { DRAWER_WIDTH } from '../constants';
 import { shadTheme } from '../theme';
 
 export type SidebarProps = DrawerProps & {
@@ -9,7 +10,7 @@ export type SidebarProps = DrawerProps & {
 
 export const Sidebar: FC<SidebarProps> = ({
   variant = 'persistent',
-  width = 240,
+  width = DRAWER_WIDTH,
   ...props
 }) => (
   <ThemeProvider theme={shadTheme('dark')}>
@@ -17,10 +18,10 @@ export const Sidebar: FC<SidebarProps> = ({
       variant={variant}
       anchor="left"
       sx={{
-        width: width,
+        width,
         flexShrink: 0,
         [`& .${drawerClasses.paper}`]: {
-          width: width,
+          width,
           boxSizing: 'border-box',
           border: 'none',
         },

@@ -1,5 +1,3 @@
-import { type FC } from 'react';
-
 type KeyboardEventKeysWithDeprecatedKeys = Pick<
   KeyboardEvent,
   | 'DOM_KEY_LOCATION_STANDARD'
@@ -37,11 +35,4 @@ export const metaKeyboardEventLocationFn = (location: KeyboardEvent['location'])
     default:
       return null;
   }
-};
-
-export const MetaKeyboardEventLocation: FC<{ location: KeyboardEvent['location'] }> = ({
-  location,
-}) => {
-  const str = metaKeyboardEventLocationFn(location);
-  return str ? <>{str}</> : <em>unknown</em>;
 };

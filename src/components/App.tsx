@@ -6,6 +6,7 @@ import Snackbar from '@mui/material/Snackbar';
 import { ThemeProvider } from '@mui/material/styles';
 import { Effect } from 'effect';
 import { useEffect, useState, type FC } from 'react';
+import { DRAWER_WIDTH } from '../constants';
 import { useAppContext } from '../hooks/use-app-context';
 import { useIsFullscreen } from '../hooks/use-is-fullscreen';
 import { shadTheme } from '../theme';
@@ -15,8 +16,6 @@ import { AppSidebarContent } from './AppSidebarContent';
 import { Main } from './Main';
 import { Sidebar } from './Sidebar';
 import { ToggleSidebarButton } from './ToggleSidebarButton';
-
-const drawerWidth = 400;
 
 export const App: FC = () => {
   const { persistSidebar, preventDefault, setPreventDefault } = useAppContext();
@@ -48,7 +47,7 @@ export const App: FC = () => {
         <Sidebar
           variant={persistSidebar ? 'persistent' : 'temporary'}
           open={drawerOpen}
-          width={drawerWidth}
+          width={DRAWER_WIDTH}
           onClose={() => setDrawerOpen(false)}
         >
           <AppSidebarContent />
@@ -58,7 +57,7 @@ export const App: FC = () => {
           data-test-id="App-main"
           choke={2}
           drawerOpen={drawerOpen}
-          drawerWidth={drawerWidth}
+          drawerWidth={DRAWER_WIDTH}
           sx={{
             display: 'grid',
             placeItems: 'center',

@@ -1,8 +1,9 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { memo, type FC, type ReactNode } from 'react';
+import { orderedKeys } from '../../utils/object-keys';
+import { getObjectName } from '../../utils/object-name';
 import { ObjectViewComplex } from './ObjectViewComplex';
-import { getObjectName, orderedKeys } from './utils';
 import { ObjectView } from '.';
 
 // eslint-disable-next-line @typescript-eslint/ban-types

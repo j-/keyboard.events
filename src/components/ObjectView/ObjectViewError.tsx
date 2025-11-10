@@ -1,8 +1,9 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { memo } from 'react';
+import { orderedKeys } from '../../utils/object-keys';
+import { getErrorName } from '../../utils/object-name';
 import { ObjectViewFunction } from './ObjectViewFunction';
-import { getErrorName, orderedKeys } from './utils';
 import { ObjectView } from '.';
 
 export const ObjectViewError = memo<{ value: Error | Record<string, unknown> }>(({

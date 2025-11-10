@@ -1,4 +1,6 @@
-export const interestingKeys = [
+export const DRAWER_WIDTH = 400;
+
+export const INTERESTING_KEYS = [
   'key',
   'code',
   'location',
@@ -13,7 +15,7 @@ export const interestingKeys = [
   'which',
 ] as const satisfies readonly (keyof KeyboardEvent)[];
 
-export const deprecatedKeys = [
+export const DEPRECATED_KEYS = [
   'which',
   'charCode',
   'keyCode',
@@ -22,7 +24,7 @@ export const deprecatedKeys = [
   'initUIEvent',
 ] as const satisfies readonly (keyof KeyboardEvent)[];
 
-export const modifiers = [
+export const MODIFIERS = [
   'Alt',
   'AltGraph',
   'CapsLock',
@@ -38,6 +40,14 @@ export const modifiers = [
   // 'Super',
   // 'Symbol',
   // 'SymbolLock',
-] as const;
+];
 
-export type Modifier = typeof modifiers[number];
+export type Modifier = typeof MODIFIERS[number];
+
+export const COMPLEX_TYPES = [
+  Element,
+  HTMLElement,
+  SVGElement,
+  Window,
+  Document,
+];

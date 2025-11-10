@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Paper, { type PaperProps } from '@mui/material/Paper';
 import type { StandardCSSProperties } from '@mui/system';
 import type { FC } from 'react';
+import { DRAWER_WIDTH } from '../constants';
 
 export type MainProps = PaperProps & {
   choke?: StandardCSSProperties['padding'];
@@ -20,7 +21,7 @@ const MainPaper = styled(Paper)<PaperProps>({
 export const Main: FC<MainProps> = ({
   choke = 1,
   drawerOpen = true,
-  drawerWidth = 240,
+  drawerWidth = DRAWER_WIDTH,
   ...props
 }) => (
   <Box
