@@ -51,13 +51,23 @@ export const Main: FC<MainProps> = ({
       }}
     >
       <Box
-        sx={{
-          height: '100%',
-          borderRadius: 2,
-          outlineStyle: 'solid',
-          outlineWidth: '100vmax',
-          outlineColor: (theme) => theme.palette.common.black,
-        }}
+        sx={[
+          {
+            height: '100%',
+            borderRadius: 2,
+            outlineStyle: 'solid',
+            outlineWidth: '100vmax',
+            outlineColor: (theme) => theme.palette.common.black,
+          },
+
+          drawerOpen ? (theme) => ({
+            transition: theme.transitions.create('margin', {
+              easing: theme.transitions.easing.easeOut,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
+            marginLeft: `${drawerWidth}px`,
+          }) : null,
+        ]}
       />
     </Box>
 
