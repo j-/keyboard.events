@@ -4,13 +4,12 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import { ThemeProvider } from '@mui/material/styles';
-import { Effect } from 'effect';
 import { useEffect, useState, type FC } from 'react';
 import { DRAWER_WIDTH } from '../constants';
 import { useAppContext } from '../hooks/use-app-context';
 import { useIsFullscreen } from '../hooks/use-is-fullscreen';
 import { shadTheme } from '../theme';
-import { lockKeyboard } from '../utils/lock-keyboard';
+import { assert } from '../utils/assert';
 import { AppMainContent } from './AppMainContent';
 import { AppSidebarContent } from './AppSidebarContent';
 import { Main } from './Main';
@@ -90,17 +89,29 @@ export const App: FC = () => {
               }}
               onClick={async () => {
                 if (isFullscreen) {
-                  await document.exitFullscreen();
                   setPreventDefault(false);
-                } else {
-                  const promise = lockKeyboard();
-                  Effect.runPromise(promise)
-                    .then(() => {
-                      setPreventDefault(true);
-                    })
-                    .catch((err) => {
-                      console.error('Failed with error', err);
-                    });
+                  await document.exitFullscreen();
+                  return;
+                }
+
+                try {
+                  assert(
+                    navigator.keyboard,
+                    'Expected navigator keyboard API to be defined',
+                  );
+
+                  assert(
+                    typeof navigator.keyboard.lock === 'function',
+                    'Expected keyboard lock to be a function',
+                  );
+
+                  await document.documentElement.requestFullscreen();
+                  await navigator.keyboard.lock();
+
+                  setPreventDefault(true);
+                } catch {
+                  setPreventDefault(false);
+                  await document.exitFullscreen();
                 }
               }}
             >
@@ -120,10 +131,8 @@ export const App: FC = () => {
             variant="contained"
             size="small"
             onClick={async () => {
-              if (isFullscreen) {
-                await document.exitFullscreen();
-              }
               setPreventDefault(false);
+              await document.exitFullscreen();
             }}
           >
             Cancel
