@@ -204,6 +204,16 @@ export const shadTheme = (mode: 'light' | 'dark') => {
           },
         },
       },
+      // My styles.
+      MuiSnackbarContent: {
+        styleOverrides: {
+          root: {
+            color: common['white'],
+            backgroundColor: '#090909',
+            borderRadius: 4,
+          },
+        },
+      },
     },
   });
 };

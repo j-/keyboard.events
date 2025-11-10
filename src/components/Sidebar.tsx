@@ -28,6 +28,10 @@ export const Sidebar: FC<SidebarProps> = ({
       slotProps={{
         paper: {
           elevation: 0,
+          sx: {
+            // Make room for snack bar if shown.
+            pb: 6,
+          },
         },
       }}
       {...props}
