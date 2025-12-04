@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import Fade from '@mui/material/Fade';
-import TextField from '@mui/material/TextField';
+import { alpha } from '@mui/material/styles';
+import TextField, { type TextFieldProps } from '@mui/material/TextField';
 import { type FC } from 'react';
 import { DRAWER_WIDTH } from '../constants';
 import { useInputRef, useTextareaRef } from '../context/InputRefContext';
@@ -22,6 +23,40 @@ export const MaybeTestInput: FC<MaybeTestInputProps> = ({
 
   const isInput = inputType === InputType.INPUT;
   const isTextarea = inputType === InputType.TEXTAREA;
+
+  const commonProps: Partial<TextFieldProps> = {
+    autoComplete: 'off',
+    fullWidth: true,
+    slotProps: {
+      input: {
+        sx: (theme) => ({
+          backgroundColor: alpha(theme.palette.background.paper, 0.75),
+          boxShadow: theme.shadows[4],
+          backdropFilter: 'blur(4px)',
+          '&:hover, &:focus, &:focus-within, &:focus-visible': {
+            backgroundColor: theme.palette.background.paper,
+          },
+        }),
+      },
+    },
+    sx: {
+      position: 'absolute',
+      transform: 'translateX(-50%)',
+      left: '50%',
+      width: 'min-max(25%, 80%)',
+      maxWidth: '50ch',
+      '& input, & textarea': {
+        whiteSpace: 'nowrap',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        resize: 'none',
+        height: 'auto',
+      },
+    },
+    onBlur: (e) => {
+      e.target.value = '';
+    },
+  };
 
   return (
     <Box
@@ -49,59 +84,28 @@ export const MaybeTestInput: FC<MaybeTestInputProps> = ({
     >
       <Fade in={isInput}>
         <TextField
-          autoComplete="off"
+          {...commonProps}
           placeholder="Test input, type here to fire keyboard events"
-          fullWidth
           slotProps={{
+            ...commonProps.slotProps,
             htmlInput: {
               ref: inputRef,
             },
-          }}
-          sx={{
-            position: 'absolute',
-            transform: 'translateX(-50%)',
-            left: '50%',
-            width: 'min-max(25%, 80%)',
-            maxWidth: '50ch',
-            '& input': {
-              whiteSpace: 'nowrap',
-              overflowX: 'auto',
-            },
-          }}
-          onBlur={(e) => {
-            e.target.value = '';
           }}
         />
       </Fade>
 
       <Fade in={isTextarea}>
         <TextField
+          {...commonProps}
           multiline
           rows={1}
-          autoComplete="off"
           placeholder="Test textarea, type here to fire keyboard events"
-          fullWidth
           slotProps={{
+            ...commonProps.slotProps,
             htmlInput: {
               ref: textarearaRef,
             },
-          }}
-          sx={{
-            position: 'absolute',
-            transform: 'translateX(-50%)',
-            left: '50%',
-            width: 'min-max(25%, 80%)',
-            maxWidth: '50ch',
-            '& textarea': {
-              whiteSpace: 'nowrap',
-              overflowX: 'auto',
-              overflowY: 'hidden',
-              resize: 'none',
-              height: 'auto',
-            },
-          }}
-          onBlur={(e) => {
-            e.target.value = '';
           }}
         />
       </Fade>

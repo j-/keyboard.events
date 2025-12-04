@@ -61,6 +61,7 @@ export const App: FC = () => {
           sx={{
             display: 'grid',
             placeItems: 'center',
+            backgroundColor: (theme) => theme.palette.background.default,
           }}
         >
           <ToggleSidebarButton
