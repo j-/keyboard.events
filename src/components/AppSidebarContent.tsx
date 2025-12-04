@@ -8,7 +8,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import Stack from '@mui/material/Stack';
 import { useId, type FC } from 'react';
 import { useAppContext } from '../hooks/use-app-context';
-import { EventTargetOption, OptionsLevel } from '../types';
+import { EventTargetOption, InputType, OptionsLevel } from '../types';
 
 export const AppSidebarContent: FC = () => {
   const id = useId();
@@ -32,6 +32,8 @@ export const AppSidebarContent: FC = () => {
     setEventTarget,
     persistSidebar,
     setPersistSidebar,
+    inputType,
+    setInputType,
   } = useAppContext();
 
   return (
@@ -68,6 +70,44 @@ export const AppSidebarContent: FC = () => {
 
       {optionsLevel > OptionsLevel.HIDE && (
         <>
+          <FormControl>
+            <FormLabel id={`${id}-input-type`}>Test input</FormLabel>
+
+            <RadioGroup
+              aria-labelledby={`${id}-input-type`}
+              onChange={(_, value) => {
+                setInputType(
+                  Number(value) as InputType,
+                );
+              }}
+              row
+            >
+              <FormControlLabel
+                name="options"
+                value={InputType.HIDE}
+                label="Hide"
+                control={<Radio size="small" />}
+                checked={inputType === InputType.HIDE}
+              />
+
+              <FormControlLabel
+                name="options"
+                value={InputType.INPUT}
+                label="Input"
+                control={<Radio size="small" />}
+                checked={inputType === InputType.INPUT}
+              />
+
+              <FormControlLabel
+                name="options"
+                value={InputType.TEXTAREA}
+                label="Textarea"
+                control={<Radio size="small" />}
+                checked={inputType === InputType.TEXTAREA}
+              />
+            </RadioGroup>
+          </FormControl>
+
           <FormControl>
             <FormLabel id={`${id}-listen-to`}>Listen to</FormLabel>
 

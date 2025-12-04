@@ -6,7 +6,8 @@ import { registerSW } from 'virtual:pwa-register';
 import { App } from './components/App.tsx';
 import { AppProvider } from './context/AppContext';
 import './index.css';
-import { EventContextProvider } from './context/EventContext';
+import { EventProvider } from './context/EventContext';
+import { InputRefProvider } from './context/InputRefContext/provider.tsx';
 import { shadTheme } from './theme.ts';
 
 if ('serviceWorker' in navigator) {
@@ -17,11 +18,13 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider theme={shadTheme('dark')}>
       <CssBaseline />
-      <AppProvider>
-        <EventContextProvider>
-          <App />
-        </EventContextProvider>
-      </AppProvider>
+      <InputRefProvider>
+        <AppProvider>
+          <EventProvider>
+            <App />
+          </EventProvider>
+        </AppProvider>
+      </InputRefProvider>
     </ThemeProvider>
   </React.StrictMode>,
 );

@@ -1,11 +1,14 @@
 import type { FC, PropsWithChildren } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { useAppContext } from '../../hooks/use-app-context';
-import { EventTargetOption } from '../../types';
+import { EventTargetOption, InputType } from '../../types';
+import { useInputRef, useTextareaRef } from '../InputRefContext';
 import { defaultEvent, EventContext } from './context';
 
-export const EventContextProvider: FC<PropsWithChildren> = ({ children }) => {
+export const EventProvider: FC<PropsWithChildren> = ({ children }) => {
   const [event, setEvent] = useState<KeyboardEvent>(defaultEvent);
+  const inputRef = useInputRef();
+  const textareaRef = useTextareaRef();
 
   const {
     capture,
@@ -15,6 +18,7 @@ export const EventContextProvider: FC<PropsWithChildren> = ({ children }) => {
     handleKeyup,
     handleKeypress,
     eventTarget: eventTargetOption,
+    inputType,
   } = useAppContext();
 
   const passive = !preventDefault && !stopPropagation;
@@ -29,13 +33,20 @@ export const EventContextProvider: FC<PropsWithChildren> = ({ children }) => {
         return document.documentElement;
       case EventTargetOption.BODY:
         return document.body;
+      case EventTargetOption.INPUT:
+        return inputType === InputType.INPUT ?
+          inputRef :
+          textareaRef;
       default:
         return null;
     }
-  }, [eventTargetOption]);
+  }, [eventTargetOption, inputRef, inputType, textareaRef]);
 
   useEffect(() => {
     if (!eventTarget || !handleKeydown) return;
+
+    const element = 'current' in eventTarget ? eventTarget.current : eventTarget;
+    if (!element) return;
 
     const handler = (e: Event) => {
       if (stopPropagation) e.stopPropagation();
@@ -43,48 +54,54 @@ export const EventContextProvider: FC<PropsWithChildren> = ({ children }) => {
       setEvent(e as KeyboardEvent);
     };
 
-    eventTarget.addEventListener('keydown', handler, { capture, passive });
+    element.addEventListener('keydown', handler, { capture, passive });
 
     return () => {
-      eventTarget.removeEventListener('keydown', handler, { capture });
+      element.removeEventListener('keydown', handler, { capture });
     };
   }, [eventTarget, handleKeydown, stopPropagation, preventDefault, capture, passive]);
 
   useEffect(() => {
     if (!eventTarget || !handleKeyup) return;
 
+    const element = 'current' in eventTarget ? eventTarget.current : eventTarget;
+    if (!element) return;
+
     const handler = (e: Event) => {
       if (stopPropagation) e.stopPropagation();
       if (preventDefault) e.preventDefault();
       setEvent(e as KeyboardEvent);
     };
 
-    eventTarget.addEventListener('keyup', handler, { capture, passive });
+    element.addEventListener('keyup', handler, { capture, passive });
 
     return () => {
-      eventTarget.removeEventListener('keyup', handler, { capture });
+      element.removeEventListener('keyup', handler, { capture });
     };
   }, [eventTarget, handleKeyup, stopPropagation, preventDefault, capture, passive]);
 
   useEffect(() => {
     if (!eventTarget || !handleKeypress) return;
 
+    const element = 'current' in eventTarget ? eventTarget.current : eventTarget;
+    if (!element) return;
+
     const handler = (e: Event) => {
       if (stopPropagation) e.stopPropagation();
       if (preventDefault) e.preventDefault();
       setEvent(e as KeyboardEvent);
     };
 
-    eventTarget.addEventListener('keypress', handler, { capture, passive });
+    element.addEventListener('keypress', handler, { capture, passive });
 
     return () => {
-      eventTarget.removeEventListener('keypress', handler, { capture });
+      element.removeEventListener('keypress', handler, { capture });
     };
   }, [eventTarget, handleKeypress, stopPropagation, preventDefault, capture, passive]);
 
   return (
-    <EventContext.Provider value={event}>
+    <EventContext value={event}>
       {children}
-    </EventContext.Provider>
+    </EventContext>
   );
 };

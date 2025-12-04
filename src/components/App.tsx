@@ -13,6 +13,7 @@ import { assert } from '../utils/assert';
 import { AppMainContent } from './AppMainContent';
 import { AppSidebarContent } from './AppSidebarContent';
 import { Main } from './Main';
+import { MaybeTestInput } from './MaybeTestInput';
 import { Sidebar } from './Sidebar';
 import { ToggleSidebarButton } from './ToggleSidebarButton';
 
@@ -121,6 +122,8 @@ export const App: FC = () => {
             <AppMainContent />
           </Box>
         </Main>
+
+        <MaybeTestInput drawerOpen={drawerOpen} />
       </ThemeProvider>
 
       <Snackbar

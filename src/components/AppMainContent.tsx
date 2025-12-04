@@ -15,7 +15,8 @@ export const AppMainContent: FC = () => {
       data-test-id="AppMainContent"
       display="grid"
       gap={2}
-      my={{ xs: 4, sm: 8, md: 12, lg: 16 }}
+      mt={6}
+      mb={8}
       mx={{ xs: 2, md: 4 }}
       alignItems={optionsLevel === OptionsLevel.ADVANCED ? 'start' : 'center'}
       justifyContent="center"

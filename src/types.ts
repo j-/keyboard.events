@@ -11,3 +11,9 @@ export enum EventTargetOption {
   BODY,
   INPUT,
 }
+
+export enum InputType {
+  HIDE,
+  INPUT,
+  TEXTAREA,
+}

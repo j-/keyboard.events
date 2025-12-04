@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import useSessionStorageState from 'use-session-storage-state';
-import { EventTargetOption, OptionsLevel } from '../../types';
+import { EventTargetOption, InputType, OptionsLevel } from '../../types';
 
 export const useAppContextState = () => {
   const [capture, setCapture] =
@@ -23,6 +23,8 @@ export const useAppContextState = () => {
     useSessionStorageState('eventTarget', { defaultValue: EventTargetOption.WINDOW });
   const [persistSidebar, setPersistSidebar] =
     useSessionStorageState('persistSidebar', { defaultValue: false });
+  const [inputType, setInputType] =
+    useSessionStorageState('inputType', { defaultValue: InputType.HIDE });
 
   return useMemo(() => ({
     capture,
@@ -43,6 +45,8 @@ export const useAppContextState = () => {
     setEventTarget,
     persistSidebar,
     setPersistSidebar,
+    inputType,
+    setInputType,
   }), [
     capture,
     setCapture,
@@ -62,5 +66,7 @@ export const useAppContextState = () => {
     setEventTarget,
     persistSidebar,
     setPersistSidebar,
+    inputType,
+    setInputType,
   ]);
 };
