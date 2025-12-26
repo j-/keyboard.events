@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import { ThemeProvider } from '@mui/material/styles';
+import { captureException } from '@sentry/react';
 import { useEffect, useState, type FC } from 'react';
 import { DRAWER_WIDTH } from '../constants';
 import { canRequestFullscreen } from '../fullscreen/can-request-fullscreen';
@@ -114,9 +115,13 @@ export const App: FC = () => {
                   await navigator.keyboard.lock();
 
                   setPreventDefault(true);
-                } catch {
+                } catch (err) {
+                  captureException(err);
                   setPreventDefault(false);
-                  await exitFullscreen();
+
+                  try {
+                    await exitFullscreen();
+                  } catch {}
                 }
               }}
             >
