@@ -6,8 +6,11 @@ import Snackbar from '@mui/material/Snackbar';
 import { ThemeProvider } from '@mui/material/styles';
 import { useEffect, useState, type FC } from 'react';
 import { DRAWER_WIDTH } from '../constants';
+import { canRequestFullscreen } from '../fullscreen/can-request-fullscreen';
+import { exitFullscreen } from '../fullscreen/exit-fullscreen';
+import { requestFullscreen } from '../fullscreen/request-fullscreen';
+import { useIsFullscreen } from '../fullscreen/use-is-fullscreen';
 import { useAppContext } from '../hooks/use-app-context';
-import { useIsFullscreen } from '../hooks/use-is-fullscreen';
 import { shadTheme } from '../theme';
 import { assert } from '../utils/assert';
 import { AppMainContent } from './AppMainContent';
@@ -29,7 +32,7 @@ export const App: FC = () => {
       if (e.key === 'Escape' && e.repeat) {
         setPreventDefault(false);
         if (document.fullscreenElement != null) {
-          await document.exitFullscreen();
+          await exitFullscreen();
         }
       }
     };
@@ -80,7 +83,7 @@ export const App: FC = () => {
           </ToggleSidebarButton>
 
           <Box m={2}>
-            <Button
+            {canRequestFullscreen(document.documentElement) && <Button
               variant="contained"
               size="large"
               sx={{
@@ -92,7 +95,7 @@ export const App: FC = () => {
               onClick={async () => {
                 if (isFullscreen) {
                   setPreventDefault(false);
-                  await document.exitFullscreen();
+                  await exitFullscreen();
                   return;
                 }
 
@@ -107,18 +110,18 @@ export const App: FC = () => {
                     'Expected keyboard lock to be a function',
                   );
 
-                  await document.documentElement.requestFullscreen();
+                  await requestFullscreen(document.documentElement);
                   await navigator.keyboard.lock();
 
                   setPreventDefault(true);
                 } catch {
                   setPreventDefault(false);
-                  await document.exitFullscreen();
+                  await exitFullscreen();
                 }
               }}
             >
               {isFullscreen ? 'Unlock keyboard' : 'Lock keyboard'}
-            </Button>
+            </Button>}
 
             <AppMainContent />
           </Box>
@@ -136,7 +139,7 @@ export const App: FC = () => {
             size="small"
             onClick={async () => {
               setPreventDefault(false);
-              await document.exitFullscreen();
+              await exitFullscreen();
             }}
           >
             Cancel
