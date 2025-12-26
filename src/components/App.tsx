@@ -84,49 +84,55 @@ export const App: FC = () => {
           </ToggleSidebarButton>
 
           <Box m={2}>
-            {canRequestFullscreen(document.documentElement) && <Button
-              variant="contained"
-              size="large"
-              sx={{
-                position: 'fixed',
-                top: 0,
-                right: 0,
-                m: 3,
-              }}
-              onClick={async () => {
-                if (isFullscreen) {
-                  setPreventDefault(false);
-                  await exitFullscreen();
-                  return;
-                }
+            {
+              canRequestFullscreen(document.documentElement) &&
+              typeof navigator.keyboard !== 'undefined' &&
+              typeof navigator.keyboard.lock === 'function' ? (
+                <Button
+                  variant="contained"
+                  size="large"
+                  sx={{
+                    position: 'fixed',
+                    top: 0,
+                    right: 0,
+                    m: 3,
+                  }}
+                  onClick={async () => {
+                    if (isFullscreen) {
+                      setPreventDefault(false);
+                      await exitFullscreen();
+                      return;
+                    }
 
-                try {
-                  assert(
-                    navigator.keyboard,
-                    'Expected navigator keyboard API to be defined',
-                  );
+                    try {
+                      assert(
+                        navigator.keyboard,
+                        'Expected navigator keyboard API to be defined',
+                      );
 
-                  assert(
-                    typeof navigator.keyboard.lock === 'function',
-                    'Expected keyboard lock to be a function',
-                  );
+                      assert(
+                        typeof navigator.keyboard.lock === 'function',
+                        'Expected keyboard lock to be a function',
+                      );
 
-                  await requestFullscreen(document.documentElement);
-                  await navigator.keyboard.lock();
+                      await requestFullscreen(document.documentElement);
+                      await navigator.keyboard.lock();
 
-                  setPreventDefault(true);
-                } catch (err) {
-                  captureException(err);
-                  setPreventDefault(false);
+                      setPreventDefault(true);
+                    } catch (err) {
+                      captureException(err);
+                      setPreventDefault(false);
 
-                  try {
-                    await exitFullscreen();
-                  } catch {}
-                }
-              }}
-            >
-              {isFullscreen ? 'Unlock keyboard' : 'Lock keyboard'}
-            </Button>}
+                      try {
+                        await exitFullscreen();
+                      } catch {}
+                    }
+                  }}
+                >
+                  {isFullscreen ? 'Unlock keyboard' : 'Lock keyboard'}
+                </Button>
+              ) : null
+            }
 
             <AppMainContent />
           </Box>
