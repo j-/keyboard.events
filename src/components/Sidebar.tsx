@@ -31,7 +31,7 @@ export const Sidebar: FC<SidebarProps> = ({
           elevation: 0,
           sx: {
             // Make room for snack bar if shown.
-            pb: 6,
+            // pb: 6,
           },
         },
       }}

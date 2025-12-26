@@ -1,8 +1,10 @@
+import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import FormLabel from '@mui/material/FormLabel';
+import Link from '@mui/material/Link';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import Stack from '@mui/material/Stack';
@@ -37,7 +39,7 @@ export const AppSidebarContent: FC = () => {
   } = useAppContext();
 
   return (
-    <Stack gap={2} m={4}>
+    <Stack gap={2} m={4} height="100%">
       <FormControl>
         <FormLabel id={`${id}-show`}>Mode</FormLabel>
 
@@ -280,6 +282,12 @@ export const AppSidebarContent: FC = () => {
           )}
         </>
       )}
+
+      <Box mt="auto" py={2}>
+        <Link href="https://skeoh.com/?utm_source=keyboard.events" target="_blank" rel="noopener">
+          skeoh.com
+        </Link>
+      </Box>
     </Stack>
   );
 };
