@@ -18,7 +18,7 @@ export const MaybeTestInput: FC<MaybeTestInputProps> = ({
   drawerWidth = DRAWER_WIDTH,
 }) => {
   const inputRef = useInputRef();
-  const textarearaRef = useTextareaRef();
+  const textareaRef = useTextareaRef();
   const { inputType } = useAppContext();
 
   const isInput = inputType === InputType.INPUT;
@@ -43,8 +43,7 @@ export const MaybeTestInput: FC<MaybeTestInputProps> = ({
       position: 'absolute',
       transform: 'translateX(-50%)',
       left: '50%',
-      width: 'min-max(25%, 80%)',
-      maxWidth: '50ch',
+      width: 'clamp(25%, 80%, 50ch)',
       '& input, & textarea': {
         whiteSpace: 'nowrap',
         overflowX: 'auto',
@@ -104,7 +103,7 @@ export const MaybeTestInput: FC<MaybeTestInputProps> = ({
           slotProps={{
             ...commonProps.slotProps,
             htmlInput: {
-              ref: textarearaRef,
+              ref: textareaRef,
             },
           }}
         />
