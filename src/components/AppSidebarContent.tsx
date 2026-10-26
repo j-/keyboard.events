@@ -53,7 +53,7 @@ export const AppSidebarContent: FC = () => {
           row
         >
           <FormControlLabel
-            name="options"
+            name="mode"
             value={OptionsLevel.BASIC}
             label="Basic"
             control={<Radio size="small" />}
@@ -61,7 +61,7 @@ export const AppSidebarContent: FC = () => {
           />
 
           <FormControlLabel
-            name="options"
+            name="mode"
             value={OptionsLevel.ADVANCED}
             label="Advanced"
             control={<Radio size="small" />}
@@ -85,7 +85,7 @@ export const AppSidebarContent: FC = () => {
               row
             >
               <FormControlLabel
-                name="options"
+                name="input-type"
                 value={InputType.HIDE}
                 label="Hide"
                 control={<Radio size="small" />}
@@ -93,7 +93,7 @@ export const AppSidebarContent: FC = () => {
               />
 
               <FormControlLabel
-                name="options"
+                name="input-type"
                 value={InputType.INPUT}
                 label="Input"
                 control={<Radio size="small" />}
@@ -101,7 +101,7 @@ export const AppSidebarContent: FC = () => {
               />
 
               <FormControlLabel
-                name="options"
+                name="input-type"
                 value={InputType.TEXTAREA}
                 label="Textarea"
                 control={<Radio size="small" />}
