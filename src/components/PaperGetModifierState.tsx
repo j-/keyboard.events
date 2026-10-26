@@ -2,14 +2,27 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { alpha, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
+import { captureException } from '@sentry/react';
 import { memo } from 'react';
 import { theme } from '../code-theme';
 import { MODIFIERS } from '../constants';
+import { assert } from '../utils/assert';
 import { ObjectViewBoolean } from './ObjectView/ObjectViewBoolean';
 import { ObjectViewString } from './ObjectView/ObjectViewString';
 
 export type PaperGetModifierStateProps = {
   event?: KeyboardEvent;
+};
+
+const getModifierStateSafe = (event: Event, keyArg: string): boolean | null => {
+  try {
+    assert(event instanceof KeyboardEvent, 'Must be a keyboard event');
+    assert(typeof event.getModifierState === 'function', 'Cannot get keyboard event modifier state');
+    return event.getModifierState(keyArg);
+  } catch (err) {
+    captureException(err);
+    return null;
+  }
 };
 
 export const PaperGetModifierState = memo<PaperGetModifierStateProps>(({
@@ -25,7 +38,7 @@ export const PaperGetModifierState = memo<PaperGetModifierStateProps>(({
             <ModifierStateLine
               key={modifier}
               modifier={modifier}
-              state={event.getModifierState(modifier)}
+              state={getModifierStateSafe(event, modifier) ?? false}
             />
           ))}
         </ThemeProvider>
