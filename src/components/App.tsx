@@ -9,6 +9,8 @@ import { useEffect, useState, type FC } from 'react';
 import { DRAWER_WIDTH } from '../constants';
 import { canRequestFullscreen } from '../fullscreen/can-request-fullscreen';
 import { exitFullscreen } from '../fullscreen/exit-fullscreen';
+import { FULLSCREEN_CHANGE_EVENTS } from '../fullscreen/fullscreen-change-events';
+import { getFullscreenElement } from '../fullscreen/get-fullscreen-element';
 import { requestFullscreen } from '../fullscreen/request-fullscreen';
 import { useIsFullscreen } from '../fullscreen/use-is-fullscreen';
 import { useAppContext } from '../hooks/use-app-context';
@@ -25,6 +27,26 @@ export const App: FC = () => {
   const { persistSidebar, preventDefault, setPreventDefault } = useAppContext();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const isFullscreen = useIsFullscreen();
+
+  // Fullscreen can be exited via browser UI as well as the unlock button, so
+  // clean up whenever it ends rather than in each handler.
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (getFullscreenElement(document) != null) return;
+      navigator.keyboard?.unlock?.();
+      setPreventDefault(false);
+    };
+
+    for (const type of FULLSCREEN_CHANGE_EVENTS) {
+      document.addEventListener(type, handleFullscreenChange);
+    }
+
+    return () => {
+      for (const type of FULLSCREEN_CHANGE_EVENTS) {
+        document.removeEventListener(type, handleFullscreenChange);
+      }
+    };
+  }, [setPreventDefault]);
 
   useEffect(() => {
     if (!preventDefault) return;
@@ -97,7 +119,6 @@ export const App: FC = () => {
                   }}
                   onClick={async () => {
                     if (isFullscreen) {
-                      setPreventDefault(false);
                       await exitFullscreen();
                       return;
                     }
