@@ -17,6 +17,9 @@ if ('serviceWorker' in navigator) {
 
 Sentry.init({
   dsn: 'https://8856cdf001662052f0d192e6f968063d@o4506046801444864.ingest.us.sentry.io/4510599775584256',
+  // Only report from production builds so local development stays out of Sentry.
+  enabled: import.meta.env.PROD,
+  environment: import.meta.env.MODE,
   // Setting this option to true will send default PII data to Sentry.
   // For example, automatic IP address collection on events
   sendDefaultPii: false,

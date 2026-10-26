@@ -1,8 +1,46 @@
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import 'dotenv/config';
+
+const GOOGLE_ANALYTICS_ID = 'G-VSP3XYY5YP';
+const UMAMI_WEBSITE_ID = '49c4411b-ba02-4b69-b2ea-8f731d3cd527';
+
+// Inject analytics into production builds only so dev traffic isn't tracked.
+const analytics = (): Plugin => ({
+  name: 'analytics',
+  apply: 'build',
+  transformIndexHtml: () => [
+    {
+      tag: 'script',
+      attrs: {
+        async: true,
+        src: `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`,
+      },
+      injectTo: 'body',
+    },
+    {
+      tag: 'script',
+      children: [
+        'window.dataLayer = window.dataLayer || [];',
+        'function gtag(){dataLayer.push(arguments);}',
+        `gtag('js', new Date());`,
+        `gtag('config', '${GOOGLE_ANALYTICS_ID}');`,
+      ].join('\n'),
+      injectTo: 'body',
+    },
+    {
+      tag: 'script',
+      attrs: {
+        defer: true,
+        src: 'https://skeoh-umami.fly.dev/script.js',
+        'data-website-id': UMAMI_WEBSITE_ID,
+      },
+      injectTo: 'body',
+    },
+  ],
+});
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -11,6 +49,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       react(),
+      analytics(),
       VitePWA({
         registerType: 'autoUpdate',
         manifest: {
