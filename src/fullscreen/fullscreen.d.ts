@@ -10,6 +10,9 @@ interface ExitFullscreen {
 
 declare global {
   interface Document {
+    mozFullScreenElement?: Element | null;
+    msFullscreenElement?: Element | null;
+    webkitFullscreenElement?: Element | null;
     mozExitFullScreen?: ExitFullscreen;
     msExitFullscreen?: ExitFullscreen;
     webkitExitFullScreen?: ExitFullscreen;

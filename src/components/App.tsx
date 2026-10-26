@@ -32,9 +32,7 @@ export const App: FC = () => {
     const handleKeydown = async (e: KeyboardEvent) => {
       if (e.key === 'Escape' && e.repeat) {
         setPreventDefault(false);
-        if (document.fullscreenElement != null) {
-          await exitFullscreen();
-        }
+        await exitFullscreen();
       }
     };
 

@@ -1,4 +1,9 @@
+import { getFullscreenElement } from './get-fullscreen-element';
+
 export const exitFullscreen = async (documentArg = document) => {
+  // Browsers reject when exiting while not in fullscreen.
+  if (getFullscreenElement(documentArg) == null) return;
+
   if (typeof documentArg.exitFullscreen === 'function') {
     return documentArg.exitFullscreen();
   } else if (typeof documentArg.mozExitFullScreen === 'function') {
