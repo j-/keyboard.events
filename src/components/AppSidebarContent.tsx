@@ -78,9 +78,16 @@ export const AppSidebarContent: FC = () => {
             <RadioGroup
               aria-labelledby={`${id}-input-type`}
               onChange={(_, value) => {
-                setInputType(
-                  Number(value) as InputType,
-                );
+                const nextInputType = Number(value) as InputType;
+                setInputType(nextInputType);
+
+                // A hidden input cannot be focused, so it cannot be the target.
+                if (
+                  nextInputType === InputType.HIDE &&
+                  eventTarget === EventTargetOption.INPUT
+                ) {
+                  setEventTarget(EventTargetOption.WINDOW);
+                }
               }}
               row
             >
@@ -209,9 +216,16 @@ export const AppSidebarContent: FC = () => {
                 <RadioGroup
                   aria-labelledby={`${id}-event-target`}
                   onChange={(_, value) => {
-                    setEventTarget(
-                      Number(value) as EventTargetOption,
-                    );
+                    const nextEventTarget = Number(value) as EventTargetOption;
+                    setEventTarget(nextEventTarget);
+
+                    // Show the test input so the target can be focused.
+                    if (
+                      nextEventTarget === EventTargetOption.INPUT &&
+                      inputType === InputType.HIDE
+                    ) {
+                      setInputType(InputType.INPUT);
+                    }
                   }}
                 >
                   <FormControlLabel
